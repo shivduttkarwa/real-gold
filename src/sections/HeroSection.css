@@ -29,6 +29,7 @@
 html {
   font-size: 16px; /* Base rem size: 1rem = 16px */
   height: 100%;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -67,9 +68,6 @@ a {
 .rg-hero__bg {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(0deg, rgba(7, 20, 37, 0.2), rgba(7, 20, 37, 0.15)),
-    url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=2200&q=85&auto=format&fit=crop");
   background-size: cover;
   background-position: center;
   will-change: transform;
@@ -368,45 +366,6 @@ a {
     transparent
   );
   opacity: 0;
-}
-
-/* ─── LOADER ─── */
-.rg-loader {
-  position: fixed;
-  inset: 0;
-  background: var(--rg-darker);
-  z-index: 9999;
-  display: grid;
-  place-items: center;
-}
-
-.rg-loader__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.875rem; /* 14px */
-}
-
-.rg-loader__spinner {
-  width: 2rem; /* 32px */
-  height: 2rem; /* 32px */
-  border: 0.15625rem solid rgba(245, 196, 94, 0.1); /* 2.5px */
-  border-top-color: var(--rg-gold);
-  border-radius: 50%;
-  animation: rg-spin 0.7s linear infinite;
-}
-
-.rg-loader__text {
-  font-size: 0.625rem; /* 10px */
-  letter-spacing: 0.4em;
-  color: var(--rg-gold);
-  opacity: 0.5;
-}
-
-@keyframes rg-spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 /* ─── DEMO AFTER ─── */
