@@ -18,6 +18,10 @@
   --rg-max: 90rem; /* 1440px */
   --rg-pad: clamp(1.125rem, 2vw, 1.75rem); /* 18px - 28px */
   --rg-radius: 1.125rem; /* 18px */
+
+  /* Fonts */
+  --font-title: "Bona Nova SC", serif;
+  --font-body: "Bricolage Grotesque", sans-serif;
 }
 
 * {
@@ -180,6 +184,7 @@ a {
   max-width: 36ch;
   text-align: center;
   align-self: center;
+  font-family: var(--font-body);
   font-size: 0.875rem; /* 14px */
   line-height: 1.7;
   color: var(--rg-ink-2);
@@ -279,11 +284,13 @@ a {
 }
 
 .rg-reveal__text {
-  font-size: clamp(2.125rem, 6vw, 5.125rem); /* 34-82px */
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-family: var(--font-title);
+  font-size: clamp(1.87rem, 5.44vw, 4.42rem); /* 30-71px (20% smaller) */
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
   color: #fff;
+  text-transform: uppercase;
   text-shadow: 0 0.1875rem 2.5rem rgba(0, 0, 0, 0.4); /* 3px 40px */
   will-change: transform, opacity;
 }
@@ -297,10 +304,11 @@ a {
 }
 
 .rg-reveal__sub {
+  font-family: var(--font-body);
   font-size: clamp(0.8125rem, 1.5vw, 1.125rem); /* 13-18px */
   font-weight: 400;
   letter-spacing: 0.05em;
-  color: rgba(240, 234, 214, 0.7);
+  color: rgba(240, 234, 214, 0.95);
   line-height: 1.65;
   max-width: 46ch;
   text-shadow: 0 0.125rem 0.9375rem rgba(0, 0, 0, 0.3); /* 2px 15px */
@@ -315,7 +323,8 @@ a {
   background: linear-gradient(135deg, var(--rg-gold), var(--rg-amber));
   color: var(--rg-navy);
   border-radius: 999px;
-  font-weight: 800;
+  font-family: var(--font-body);
+  font-weight: 600;
   font-size: 0.8125rem; /* 13px */
   letter-spacing: 0.03125rem; /* 0.5px */
   box-shadow: 0 1.125rem 2.8125rem rgba(245, 196, 94, 0.25); /* 18px 45px */

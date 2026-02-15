@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import BtnPrimary from "../components/BtnPrimary";
+import BtnSecondary from "../components/BtnSecondary";
 import "./HeroSection.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -109,7 +110,7 @@ export default function HeroSection() {
 
     /* ── initial states ── */
     gsap.set([revealL1, revealL2, revealSub, revealCta], {
-      x: -300,
+      x: -100,
       opacity: 0,
     });
     gsap.set(revealCta, { scale: 0.85 });
@@ -286,7 +287,7 @@ export default function HeroSection() {
         {
           x: 0,
           opacity: 1,
-          duration: 0.18,
+          duration: 0.13,
           ease: "power4.out",
         },
         0.18,
@@ -297,7 +298,7 @@ export default function HeroSection() {
         {
           x: 0,
           opacity: 1,
-          duration: 0.18,
+          duration: 0.13,
           ease: "power4.out",
         },
         0.24,
@@ -308,7 +309,7 @@ export default function HeroSection() {
         {
           x: 0,
           opacity: 1,
-          duration: 0.18,
+          duration: 0.13,
           ease: "power4.out",
         },
         0.3,
@@ -320,7 +321,7 @@ export default function HeroSection() {
           x: 0,
           opacity: 1,
           scale: 1,
-          duration: 0.18,
+          duration: 0.13,
           ease: "power4.out",
         },
         0.36,
@@ -503,21 +504,21 @@ export default function HeroSection() {
         <div className="rg-hero__reveal">
           <div className="rg-reveal__line">
             <div className="rg-reveal__text" ref={revealL1Ref}>
-              Where <span className="rg-gold">Gold</span>
+              Luxury <span className="rg-gold">Redefined</span>
             </div>
           </div>
           <div className="rg-reveal__line">
             <div className="rg-reveal__text" ref={revealL2Ref}>
-              Meets <span className="rg-amber">Home</span>
+              Living <span className="rg-amber">Elevated</span>
             </div>
           </div>
           <div className="rg-reveal__sub" ref={revealSubRef}>
             350+ premium properties delivered — luxury villas, penthouses &amp;
             exclusive estates crafted for those who demand the extraordinary.
           </div>
-          <a className="rg-reveal__cta" ref={revealCtaRef} href="#">
-            EXPLORE PROPERTIES <span style={{ fontSize: "16px" }}>→</span>
-          </a>
+          <div ref={revealCtaRef}>
+            <BtnSecondary label="Explore Properties" />
+          </div>
         </div>
 
         <button
