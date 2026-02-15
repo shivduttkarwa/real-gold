@@ -142,8 +142,8 @@ export default function HeroSection() {
         scrollTrigger: {
           trigger: heroWrap,
           start: "top top",
-          end: "+=3200",
-          scrub: 1.5,
+          end: "+=600",
+          scrub: 1,
           pin: true,
           anticipatePin: 1,
           id: "heroPin",
@@ -327,7 +327,7 @@ export default function HeroSection() {
       );
 
       /* G — hold */
-      scrollTL.to({}, { duration: 0.36 });
+      scrollTL.to({}, { duration: 0.05 });
     };
 
     /* ── entry timeline ── */
