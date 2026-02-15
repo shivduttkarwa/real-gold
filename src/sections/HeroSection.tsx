@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import BtnPrimary from "../components/BtnPrimary";
 import "./HeroSection.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -495,12 +496,7 @@ export default function HeroSection() {
             </p>
 
             <div className="rg-hero__actions" ref={actionsRef}>
-              <a className="rg-btn" href="#">
-                SCHEDULE A PRIVATE VIEWING{" "}
-                <span className="rg-btn__icon" aria-hidden="true">
-                  ◆
-                </span>
-              </a>
+              <BtnPrimary label="Schedule a Private Viewing" />
             </div>
           </div>
         </div>

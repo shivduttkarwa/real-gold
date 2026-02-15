@@ -1,0 +1,175 @@
+/* ════════════════════════════════════════════════════════
+   BTN PRIMARY
+   Minimal bordered with elegant line choreography
+   ════════════════════════════════════════════════════════ */
+.btn-primary {
+  --btn-primary-color: #f5c45e;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem; /* 14px */
+  padding: 1.1875rem 2.875rem; /* 19px 46px */
+  font-family:
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Arial,
+    sans-serif;
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 400;
+  letter-spacing: 0.28125rem; /* 4.5px */
+  text-transform: uppercase;
+  color: #f0ead6;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* Animated border made from 4 lines */
+.btn-primary .bp-top,
+.btn-primary .bp-bottom,
+.btn-primary .bp-left,
+.btn-primary .bp-right {
+  position: absolute;
+  background: rgba(240, 234, 214, 0.2);
+  transition: background 0.6s ease;
+}
+
+.btn-primary .bp-top {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform-origin: left;
+}
+
+.btn-primary .bp-bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform-origin: right;
+}
+
+.btn-primary .bp-left {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  transform-origin: bottom;
+}
+
+.btn-primary .bp-right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  transform-origin: top;
+}
+
+/* Gold overlay lines that animate in */
+.btn-primary .bp-top::after,
+.btn-primary .bp-bottom::after,
+.btn-primary .bp-left::after,
+.btn-primary .bp-right::after {
+  content: "";
+  position: absolute;
+  background: var(--btn-primary-color);
+}
+
+.btn-primary .bp-top::after {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+}
+
+.btn-primary .bp-right::after {
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 0%;
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+}
+
+.btn-primary .bp-bottom::after {
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 0%;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+}
+
+.btn-primary .bp-left::after {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+}
+
+.btn-primary:hover .bp-top::after {
+  width: 100%;
+  transition-delay: 0s;
+}
+
+.btn-primary:hover .bp-right::after {
+  height: 100%;
+  transition-delay: 0.15s;
+}
+
+.btn-primary:hover .bp-bottom::after {
+  width: 100%;
+  transition-delay: 0.3s;
+}
+
+.btn-primary:hover .bp-left::after {
+  height: 100%;
+  transition-delay: 0.45s;
+}
+
+.btn-primary .bp-fill {
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--btn-primary-color) 4%, transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease 0.2s;
+  z-index: -1;
+}
+
+.btn-primary .bp-label {
+  transition:
+    color 0.5s ease 0.1s,
+    transform 0.4s ease;
+}
+
+.btn-primary .bp-arrow {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  color: var(--btn-primary-color);
+  font-size: 0.875rem; /* 14px */
+  line-height: 1;
+}
+
+.btn-primary:hover .bp-fill {
+  opacity: 1;
+}
+
+.btn-primary:hover .bp-label {
+  color: var(--btn-primary-color);
+}
+
+.btn-primary:hover .bp-arrow {
+  width: 1.25rem; /* 20px */
+}

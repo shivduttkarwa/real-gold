@@ -1,1152 +1,206 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Real Gold Properties – Hero</title>
-
-    <style>
-        :root {
-            --rg-navy: #102E50;
-            --rg-gold: #F5C45E;
-            --rg-amber: #E78B48;
-            --rg-crimson: #BE3D2A;
-            --rg-dark: #0a1a2e;
-            --rg-darker: #071425;
-            --rg-ink: #f0ead6;
-            --rg-ink-2: rgba(240, 234, 214, .72);
-            --rg-max: 1440px;
-            --rg-pad: clamp(18px, 2vw, 28px);
-            --rg-radius: 18px;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-            background: var(--rg-darker);
-            color: var(--rg-ink);
-            overflow-x: hidden;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        /* ─── DEBUG PANEL ─── */
-        .debug-panel {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 99999;
-            background: rgba(7, 20, 37, .96);
-            border: 1px solid rgba(245, 196, 94, .2);
-            border-radius: 12px;
-            padding: 14px 16px;
-            width: 300px;
-            max-height: 96vh;
-            overflow-y: auto;
-            font-size: 11px;
-            color: var(--rg-ink);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
-        }
-
-        .debug-panel::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .debug-panel::-webkit-scrollbar-thumb {
-            background: rgba(245, 196, 94, .2);
-            border-radius: 4px;
-        }
-
-        .debug-panel h3 {
-            color: var(--rg-gold);
-            font-size: 11px;
-            letter-spacing: .2em;
-            margin: 0 0 10px 0;
-            padding-bottom: 6px;
-            border-bottom: 1px solid rgba(245, 196, 94, .15);
-        }
-
-        .debug-panel h4 {
-            color: var(--rg-amber);
-            font-size: 10px;
-            letter-spacing: .15em;
-            margin: 14px 0 6px 0;
-        }
-
-        .debug-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 6px;
-            margin-bottom: 5px;
-        }
-
-        .debug-row label {
-            flex: 0 0 auto;
-            min-width: 80px;
-            white-space: nowrap;
-            color: rgba(240, 234, 214, .55);
-            font-size: 10px;
-        }
-
-        .debug-row input[type="range"] {
-            flex: 1;
-            height: 3px;
-            accent-color: var(--rg-gold);
-            cursor: pointer;
-        }
-
-        .debug-row .debug-val {
-            flex: 0 0 38px;
-            text-align: right;
-            color: var(--rg-gold);
-            font-weight: 700;
-            font-size: 10px;
-            font-family: monospace;
-        }
-
-        .debug-btn {
-            display: block;
-            width: 100%;
-            margin-top: 8px;
-            padding: 8px;
-            background: linear-gradient(135deg, var(--rg-gold), var(--rg-amber));
-            color: var(--rg-navy);
-            border: none;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 10px;
-            letter-spacing: .1em;
-            cursor: pointer;
-        }
-
-        .debug-btn--secondary {
-            background: rgba(245, 196, 94, .12);
-            color: var(--rg-gold);
-        }
-
-        .debug-toggle {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 100000;
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            border: 1px solid rgba(245, 196, 94, .3);
-            background: rgba(7, 20, 37, .9);
-            color: var(--rg-gold);
-            font-size: 16px;
-            cursor: pointer;
-            display: grid;
-            place-items: center;
-            backdrop-filter: blur(8px);
-        }
-
-        .debug-preview {
-            width: 100%;
-            height: 80px;
-            margin: 8px 0;
-            border: 1px solid rgba(245, 196, 94, .12);
-            border-radius: 8px;
-            overflow: hidden;
-            background: rgba(0, 0, 0, .3);
-        }
-
-        .debug-preview svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .debug-preview path {
-            fill: rgba(245, 196, 94, .15);
-            stroke: var(--rg-gold);
-            stroke-width: 2;
-        }
-
-        .rg-hero-wrap {
-            position: relative;
-        }
-
-        .rg-hero {
-            position: relative;
-            height: 100vh;
-            min-height: 640px;
-            overflow: hidden;
-            isolation: isolate;
-        }
-
-        .rg-hero__bg {
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(0deg, rgba(7, 20, 37, .2), rgba(7, 20, 37, .15)),
-                url("https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=2200&q=85&auto=format&fit=crop");
-            background-size: cover;
-            background-position: center;
-            will-change: transform;
-            z-index: 0;
-            transform: scale(1.08);
-        }
-
-        .rg-hero__overlay {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            pointer-events: none;
-            will-change: transform;
-        }
-
-        .rg-hero__shape {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-            z-index: 1;
-        }
-
-        .rg-hero__shape path {
-            fill: var(--rg-navy);
-        }
-
-        .rg-hero__content {
-            position: relative;
-            z-index: 2;
-            height: 100%;
-            max-width: 420px;
-            padding: clamp(30px, 4vw, 60px) clamp(24px, 4vw, 50px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 20px;
-            margin-left: clamp(24px, 4vw, 70px);
-            pointer-events: auto;
-        }
-
-        .rg-hero__logo {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            opacity: 0;
-            transform: translateX(-40px);
-        }
-
-        .rg-hero__logoMark {
-            width: 46px;
-            height: 46px;
-            border-radius: 13px;
-            background:
-                radial-gradient(circle at 30% 30%, rgba(255, 255, 255, .3) 0 35%, transparent 36%),
-                linear-gradient(135deg, var(--rg-gold), var(--rg-amber));
-            box-shadow: 0 8px 25px rgba(0, 0, 0, .25);
-            flex: 0 0 auto;
-            position: relative;
-        }
-
-        .rg-hero__logoMark::after {
-            content: "◆";
-            position: absolute;
-            inset: 0;
-            display: grid;
-            place-items: center;
-            font-size: 16px;
-            color: var(--rg-navy);
-            font-weight: 900;
-        }
-
-        .rg-hero__brand {
-            font-weight: 800;
-            letter-spacing: .3px;
-            font-size: 26px;
-            line-height: 1.1;
-            color: #fff;
-        }
-
-        .rg-hero__brandGold {
-            color: var(--rg-gold);
-        }
-
-        .rg-hero__sub {
-            font-size: 9.5px;
-            letter-spacing: .3em;
-            margin-top: 4px;
-            color: var(--rg-ink-2);
-            text-transform: uppercase;
-        }
-
-        .rg-hero__card {
-            width: 100%;
-            max-width: 380px;
-            border-radius: var(--rg-radius);
-            overflow: hidden;
-            border: 1px solid rgba(245, 196, 94, .12);
-            background: var(--rg-dark);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, .2);
-            opacity: 0;
-            transform: translateX(-50px) scale(0.97);
-        }
-
-        .rg-hero__cardImg {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .rg-hero__desc {
-            margin: 0;
-            max-width: 36ch;
-            font-size: 14px;
-            line-height: 1.7;
-            color: var(--rg-ink-2);
-            opacity: 0;
-            transform: translateX(-30px);
-        }
-
-        .rg-hero__actions {
-            opacity: 0;
-            transform: translateX(-30px);
-        }
-
-        .rg-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 13px 20px;
-            background: linear-gradient(135deg, var(--rg-gold), var(--rg-amber));
-            color: var(--rg-navy);
-            border-radius: 999px;
-            font-weight: 800;
-            letter-spacing: .5px;
-            font-size: 12px;
-            width: fit-content;
-            box-shadow: 0 15px 40px rgba(245, 196, 94, .2);
-            transition: transform .25s ease, box-shadow .25s ease;
-        }
-
-        .rg-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 50px rgba(245, 196, 94, .3);
-        }
-
-        .rg-btn__icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 999px;
-            display: grid;
-            place-items: center;
-            background: rgba(16, 46, 80, .12);
-            font-size: 12px;
-        }
-
-        .rg-hero__badge {
-            position: absolute;
-            right: clamp(16px, 3vw, 36px);
-            bottom: clamp(24px, 4vh, 50px);
-            width: 110px;
-            height: 110px;
-            border-radius: 999px;
-            border: 1px solid rgba(245, 196, 94, .15);
-            background: rgba(16, 46, 80, .4);
-            backdrop-filter: blur(12px);
-            color: var(--rg-gold);
-            display: grid;
-            place-items: center;
-            z-index: 6;
-            cursor: pointer;
-            opacity: 0;
-        }
-
-        .rg-hero__badgeInner {
-            font-weight: 800;
-            letter-spacing: .3em;
-            font-size: 10px;
-        }
-
-        .rg-hero__reveal {
-            position: absolute;
-            inset: 0;
-            z-index: 5;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            gap: 24px;
-            pointer-events: none;
-            padding: var(--rg-pad);
-        }
-
-        .rg-reveal__line {
-            overflow: hidden;
-        }
-
-        .rg-reveal__text {
-            font-size: clamp(34px, 6vw, 82px);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            color: #fff;
-            text-shadow: 0 3px 40px rgba(0, 0, 0, .4);
-            will-change: transform, opacity;
-        }
-
-        .rg-reveal__text .rg-gold {
-            color: var(--rg-gold);
-        }
-
-        .rg-reveal__text .rg-amber {
-            color: var(--rg-amber);
-        }
-
-        .rg-reveal__sub {
-            font-size: clamp(13px, 1.5vw, 18px);
-            font-weight: 400;
-            letter-spacing: .05em;
-            color: rgba(240, 234, 214, .7);
-            line-height: 1.65;
-            max-width: 46ch;
-            text-shadow: 0 2px 15px rgba(0, 0, 0, .3);
-            will-change: transform, opacity;
-        }
-
-        .rg-reveal__cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, var(--rg-gold), var(--rg-amber));
-            color: var(--rg-navy);
-            border-radius: 999px;
-            font-weight: 800;
-            font-size: 13px;
-            letter-spacing: .5px;
-            box-shadow: 0 18px 45px rgba(245, 196, 94, .25);
-            pointer-events: auto;
-            transition: transform .25s ease, box-shadow .25s ease;
-            will-change: transform, opacity;
-        }
-
-        .rg-reveal__cta:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 22px 55px rgba(245, 196, 94, .35);
-        }
-
-        .rg-hero__vignette {
-            position: absolute;
-            inset: 0;
-            z-index: 4;
-            background: radial-gradient(ellipse at center, rgba(7, 20, 37, .1) 0%, rgba(7, 20, 37, .3) 100%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .rg-hero__accent {
-            position: absolute;
-            z-index: 6;
-            pointer-events: none;
-        }
-
-        .rg-hero__accent--left {
-            left: clamp(14px, 3vw, 40px);
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1.5px;
-            height: 0;
-            background: linear-gradient(to bottom, transparent, var(--rg-gold), var(--rg-amber), transparent);
-            opacity: 0;
-        }
-
-        .rg-hero__accent--right {
-            right: clamp(14px, 3vw, 40px);
-            top: 50%;
-            transform: translateY(-50%);
-            width: 1.5px;
-            height: 0;
-            background: linear-gradient(to bottom, transparent, var(--rg-amber), var(--rg-crimson), transparent);
-            opacity: 0;
-        }
-
-        @media (max-width: 820px) {
-            .rg-hero__content {
-                max-width: 380px;
-                margin-left: clamp(16px, 3vw, 30px);
-            }
-
-            .rg-hero__cardImg {
-                height: 180px;
-            }
-
-            .debug-panel {
-                width: 250px;
-                font-size: 10px;
-            }
-        }
-
-        @media (max-width: 520px) {
-            .rg-hero {
-                min-height: 700px;
-            }
-
-            .rg-hero__brand {
-                font-size: 22px;
-            }
-
-            .rg-hero__desc {
-                font-size: 13px;
-            }
-
-            .rg-hero__cardImg {
-                height: 160px;
-            }
-
-            .rg-hero__content {
-                margin-left: 14px;
-                max-width: 90vw;
-            }
-
-            .debug-panel {
-                width: 220px;
-                padding: 10px;
-            }
-        }
-
-        .demo-after {
-            min-height: 120vh;
-            background: var(--rg-darker);
-            color: #fff;
-            padding: 80px 20px;
-            border-top: 1px solid rgba(245, 196, 94, .06);
-        }
-
-        .demo-after h2 {
-            max-width: var(--rg-max);
-            margin: 0 auto;
-            font-size: 38px;
-            color: var(--rg-gold);
-        }
-
-        .demo-after p {
-            max-width: var(--rg-max);
-            margin: 16px auto 0;
-            opacity: .55;
-            line-height: 1.7;
-        }
-
-        .rg-loader {
-            position: fixed;
-            inset: 0;
-            background: var(--rg-darker);
-            z-index: 9999;
-            display: grid;
-            place-items: center;
-        }
-
-        .rg-loader__inner {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .rg-loader__spinner {
-            width: 32px;
-            height: 32px;
-            border: 2.5px solid rgba(245, 196, 94, .1);
-            border-top-color: var(--rg-gold);
-            border-radius: 50%;
-            animation: spin .7s linear infinite;
-        }
-
-        .rg-loader__text {
-            font-size: 10px;
-            letter-spacing: .4em;
-            color: var(--rg-gold);
-            opacity: .5;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Button Test — Atelier</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rg-gold: #f5c45e;
+  --rg-ink: #f0ead6;
+  --rg-darker: #071425;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--rg-darker);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  padding: 40px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: rgba(245, 196, 94, 0.35);
+  text-align: center;
+}
+
+/* ════════════════════════════════════════════════════════
+   BTN ATELIER
+   Minimal bordered with elegant line choreography
+   ════════════════════════════════════════════════════════ */
+.btn-atelier {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 19px 46px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 4.5px;
+  text-transform: uppercase;
+  color: var(--rg-ink);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+}
+
+/* Animated border made from 4 lines */
+.btn-atelier .at-top,
+.btn-atelier .at-bottom,
+.btn-atelier .at-left,
+.btn-atelier .at-right {
+  position: absolute;
+  background: rgba(240, 234, 214, 0.2);
+  transition: background 0.6s ease;
+}
+
+.btn-atelier .at-top {
+  top: 0; left: 0; right: 0; height: 1px;
+  transform-origin: left;
+}
+.btn-atelier .at-bottom {
+  bottom: 0; left: 0; right: 0; height: 1px;
+  transform-origin: right;
+}
+.btn-atelier .at-left {
+  top: 0; left: 0; bottom: 0; width: 1px;
+  transform-origin: bottom;
+}
+.btn-atelier .at-right {
+  top: 0; right: 0; bottom: 0; width: 1px;
+  transform-origin: top;
+}
+
+/* Gold overlay lines that animate in */
+.btn-atelier .at-top::after,
+.btn-atelier .at-bottom::after,
+.btn-atelier .at-left::after,
+.btn-atelier .at-right::after {
+  content: '';
+  position: absolute;
+  background: var(--rg-gold);
+}
+
+.btn-atelier .at-top::after {
+  top: 0; left: 0; height: 100%; width: 0%;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+}
+.btn-atelier .at-right::after {
+  top: 0; right: 0; width: 100%; height: 0%;
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+}
+.btn-atelier .at-bottom::after {
+  bottom: 0; right: 0; height: 100%; width: 0%;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+}
+.btn-atelier .at-left::after {
+  bottom: 0; left: 0; width: 100%; height: 0%;
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0s;
+}
+
+.btn-atelier:hover .at-top::after {
+  width: 100%;
+  transition-delay: 0s;
+}
+.btn-atelier:hover .at-right::after {
+  height: 100%;
+  transition-delay: 0.15s;
+}
+.btn-atelier:hover .at-bottom::after {
+  width: 100%;
+  transition-delay: 0.3s;
+}
+.btn-atelier:hover .at-left::after {
+  height: 100%;
+  transition-delay: 0.45s;
+}
+
+.btn-atelier .at-fill {
+  position: absolute;
+  inset: 0;
+  background: rgba(245, 196, 94, 0.04);
+  opacity: 0;
+  transition: opacity 0.5s ease 0.2s;
+  z-index: -1;
+}
+
+.btn-atelier .at-label {
+  transition: color 0.5s ease 0.1s, transform 0.4s ease;
+}
+
+.btn-atelier .at-arrow {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  color: var(--rg-gold);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.btn-atelier:hover .at-fill { opacity: 1; }
+.btn-atelier:hover .at-label { color: var(--rg-gold); }
+.btn-atelier:hover .at-arrow { width: 20px; }
+</style>
 </head>
-
 <body>
 
-    <button class="debug-toggle" id="debugToggle" aria-label="Toggle controls">⚙</button>
-
-    <div class="debug-panel" id="debugPanel" style="display:none;">
-        <h3>⚙ ANIMATION KNOBS</h3>
-
-        <h4>ENTRY TIMING</h4>
-        <div class="debug-row"><label>BG zoom dur</label><input type="range" id="k_bgZoomDur" min="0.5" max="3"
-                step="0.1" value="1.8"><span class="debug-val" id="v_bgZoomDur">1.8</span></div>
-        <div class="debug-row"><label>Arc sweep dur</label><input type="range" id="k_arcSweepDur" min="0.5" max="3"
-                step="0.1" value="1.6"><span class="debug-val" id="v_arcSweepDur">1.6</span></div>
-        <div class="debug-row"><label>Arc sweep delay</label><input type="range" id="k_arcSweepDelay" min="0" max="2"
-                step="0.05" value="0.4"><span class="debug-val" id="v_arcSweepDelay">0.4</span></div>
-        <div class="debug-row"><label>Content stagger</label><input type="range" id="k_contentStagger" min="0.05"
-                max="0.4" step="0.01" value="0.15"><span class="debug-val" id="v_contentStagger">0.15</span></div>
-        <div class="debug-row"><label>Content dur</label><input type="range" id="k_contentDur" min="0.3" max="1.5"
-                step="0.05" value="0.8"><span class="debug-val" id="v_contentDur">0.8</span></div>
-
-        <h4>SCROLL TIMING</h4>
-        <div class="debug-row"><label>Scrub smooth</label><input type="range" id="k_scrub" min="0.5" max="5" step="0.1"
-                value="2.5"><span class="debug-val" id="v_scrub">2.5</span></div>
-        <div class="debug-row"><label>Pin distance</label><input type="range" id="k_pinDist" min="1500" max="6000"
-                step="100" value="3200"><span class="debug-val" id="v_pinDist">3200</span></div>
-        <div class="debug-row"><label>Arc exit dur</label><input type="range" id="k_arcExitDur" min="0.1" max="0.8"
-                step="0.02" value="0.35"><span class="debug-val" id="v_arcExitDur">0.35</span></div>
-        <div class="debug-row"><label>Vignette max</label><input type="range" id="k_vigMax" min="0" max="1" step="0.05"
-                value="0.5"><span class="debug-val" id="v_vigMax">0.5</span></div>
-        <div class="debug-row"><label>Reveal text dur</label><input type="range" id="k_revealDur" min="0.05" max="0.5"
-                step="0.01" value="0.18"><span class="debug-val" id="v_revealDur">0.18</span></div>
-        <div class="debug-row"><label>Hold duration</label><input type="range" id="k_holdDur" min="0.1" max="0.8"
-                step="0.02" value="0.36"><span class="debug-val" id="v_holdDur">0.36</span></div>
-
-        <h4>SVG CURVE SHAPE</h4>
-        <div class="debug-preview" id="debugPreview">
-            <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
-                <path id="previewPath" d="" />
-            </svg>
-        </div>
-
-        <div class="debug-row"><label>Top edge X</label><input type="range" id="k_topX" min="300" max="900" step="5"
-                value="700"><span class="debug-val" id="v_topX">700</span></div>
-        <div class="debug-row"><label>CP1 X</label><input type="range" id="k_cp1x" min="300" max="950" step="5"
-                value="780"><span class="debug-val" id="v_cp1x">780</span></div>
-        <div class="debug-row"><label>CP1 Y</label><input type="range" id="k_cp1y" min="50" max="450" step="5"
-                value="250"><span class="debug-val" id="v_cp1y">250</span></div>
-        <div class="debug-row"><label>Mid X</label><input type="range" id="k_midX" min="200" max="800" step="5"
-                value="620"><span class="debug-val" id="v_midX">620</span></div>
-        <div class="debug-row"><label>Mid Y</label><input type="range" id="k_midY" min="300" max="700" step="5"
-                value="500"><span class="debug-val" id="v_midY">500</span></div>
-        <div class="debug-row"><label>CP2 X</label><input type="range" id="k_cp2x" min="100" max="700" step="5"
-                value="460"><span class="debug-val" id="v_cp2x">460</span></div>
-        <div class="debug-row"><label>CP2 Y</label><input type="range" id="k_cp2y" min="550" max="950" step="5"
-                value="750"><span class="debug-val" id="v_cp2y">750</span></div>
-        <div class="debug-row"><label>Bottom edge X</label><input type="range" id="k_botX" min="200" max="800" step="5"
-                value="540"><span class="debug-val" id="v_botX">540</span></div>
-
-        <h4>SHAPE WIDTH OFFSET</h4>
-        <div class="debug-row"><label>Global shift X</label><input type="range" id="k_shiftX" min="-300" max="200"
-                step="5" value="0"><span class="debug-val" id="v_shiftX">0</span></div>
-
-        <button class="debug-btn" id="debugApplyShape">✓ APPLY SHAPE LIVE</button>
-        <button class="debug-btn debug-btn--secondary" id="debugReplay" style="margin-top:6px;">▶ REPLAY ENTRY</button>
-        <button class="debug-btn debug-btn--secondary" id="debugLog" style="margin-top:6px;">📋 LOG VALUES</button>
-    </div>
-
-    <div class="rg-loader" id="rgLoader">
-        <div class="rg-loader__inner">
-            <div class="rg-loader__spinner"></div>
-            <div class="rg-loader__text">REAL GOLD</div>
-        </div>
-    </div>
-
-    <div class="rg-hero-wrap" id="rgHeroWrap">
-        <section class="rg-hero" id="rgHero">
-            <div class="rg-hero__bg" id="rgBg" aria-hidden="true"></div>
-            <div class="rg-hero__vignette" id="rgVignette" aria-hidden="true"></div>
-            <div class="rg-hero__accent rg-hero__accent--left" id="rgAccentL" aria-hidden="true"></div>
-            <div class="rg-hero__accent rg-hero__accent--right" id="rgAccentR" aria-hidden="true"></div>
-
-            <div class="rg-hero__overlay" id="rgOverlay">
-                <svg class="rg-hero__shape" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
-                    <path id="rgPath" d="" />
-                </svg>
-                <div class="rg-hero__content">
-                    <div class="rg-hero__logo" id="rgLogo">
-                        <span class="rg-hero__logoMark"></span>
-                        <div>
-                            <div class="rg-hero__brand">Real <span class="rg-hero__brandGold">Gold</span> Properties
-                            </div>
-                            <div class="rg-hero__sub">PREMIUM REAL ESTATE</div>
-                        </div>
-                    </div>
-                    <div class="rg-hero__card" id="rgCard">
-                        <img class="rg-hero__cardImg"
-                            src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=900&q=80&auto=format&fit=crop"
-                            alt="Luxury property" />
-                    </div>
-                    <p class="rg-hero__desc" id="rgDesc">Curating exceptional properties that embody luxury,
-                        sophistication, and timeless value — your vision, our expertise.</p>
-                    <div class="rg-hero__actions" id="rgActions">
-                        <a class="rg-btn" href="#">SCHEDULE A PRIVATE VIEWING <span class="rg-btn__icon"
-                                aria-hidden="true">◆</span></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="rg-hero__reveal" id="rgReveal">
-                <div class="rg-reveal__line">
-                    <div class="rg-reveal__text" id="revealLine1">Where <span class="rg-gold">Gold</span></div>
-                </div>
-                <div class="rg-reveal__line">
-                    <div class="rg-reveal__text" id="revealLine2">Meets <span class="rg-amber">Home</span></div>
-                </div>
-                <div class="rg-reveal__sub" id="revealSub">350+ premium properties delivered — luxury villas, penthouses
-                    &amp; exclusive estates crafted for those who demand the extraordinary.</div>
-                <a class="rg-reveal__cta" id="revealCta" href="#">EXPLORE PROPERTIES <span
-                        style="font-size:16px;">→</span></a>
-            </div>
-
-            <button class="rg-hero__badge" id="rgBadge" type="button" aria-label="Scroll">
-                <span class="rg-hero__badgeInner">SCROLL</span>
-            </button>
-        </section>
-    </div>
-
-    <section class="demo-after">
-        <h2>Featured Properties</h2>
-        <p>Normal scrolling resumes. Replace with your content.</p>
-    </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-
-    <script>
-        gsap.registerPlugin(ScrollTrigger);
-
-        const q = id => document.getElementById(id);
-        const loader = q("rgLoader");
-        const svgPath = q("rgPath");
-        const prevPath = q("previewPath");
-        const bg = q("rgBg");
-        const badge = q("rgBadge");
-        const logo = q("rgLogo");
-        const card = q("rgCard");
-        const desc = q("rgDesc");
-        const actions = q("rgActions");
-        const vignette = q("rgVignette");
-        const accentL = q("rgAccentL");
-        const accentR = q("rgAccentR");
-        const revealL1 = q("revealLine1");
-        const revealL2 = q("revealLine2");
-        const revealSub = q("revealSub");
-        const revealCta = q("revealCta");
-
-        // ═══════════════════════════════════════════════════
-        // KNOBS — everything tweakable
-        // ═══════════════════════════════════════════════════
-        const K = {
-            "bgZoomFrom": 1.2,
-            "bgZoomTo": 1.05,
-            "bgZoomDur": 1.8,
-            "bgZoomDelay": 0.2,
-            "arcSweepDur": 1.0,
-            "arcSweepDelay": 0.3,
-            "arcSweepEase": "power3.out",
-            "contentStartDelay": 1.2,
-            "contentStagger": 0.15,
-            "contentDur": 0.8,
-            "contentEase": "power3.out",
-            "badgeDelay": 1.85,
-            "badgeDur": 0.6,
-            "scrub": 1.5,
-            "pinDistance": 3200,
-            "contentFadeDur": 0.08,
-            "contentFadeStagger": 0.015,
-            "arcExitDur": 0.35,
-            "arcExitEase": "power2.inOut",
-            "arcExitDelay": 0.06,
-            "vignetteMax": 0.5,
-            "vignetteDur": 0.2,
-            "vignetteDelay": 0.25,
-            "bgSettleScale": 1.02,
-            "bgSettleDur": 0.3,
-            "accentDelay": 0.38,
-            "accentDur": 0.15,
-            "accentLH": "55vh",
-            "accentRH": "45vh",
-            "revealDelay": 0.18,
-            "revealStagger": 0.06,
-            "revealDur": 0.18,
-            "revealEase": "power4.out",
-            "revealXOffset": 100,
-            "ctaDelay": 0.64,
-            "ctaDur": 0.14,
-            "ctaEase": "back.out(1.4)",
-            "holdDur": 0.36,
-            "rest": {
-                "topX": 700,
-                "cp1x": 780,
-                "cp1y": 250,
-                "midX": 620,
-                "midY": 500,
-                "cp2x": 460,
-                "cp2y": 750,
-                "botX": 540
-            },
-            "shiftX": -70
-        }
-        // Computed flat shape — same silhouette but all X = same value (straight edge)
-        function computeFlat(baseX) {
-            return {
-                topX: baseX, cp1x: baseX, cp1y: 250,
-                midX: baseX, midY: 500,
-                cp2x: baseX, cp2y: 750,
-                botX: baseX,
-            };
-        }
-
-        // Computed resting shape with global shift applied
-        function computeRest() {
-            const s = K.shiftX;
-            return {
-                topX: K.rest.topX + s,
-                cp1x: K.rest.cp1x + s, cp1y: K.rest.cp1y,
-                midX: K.rest.midX + s, midY: K.rest.midY,
-                cp2x: K.rest.cp2x + s, cp2y: K.rest.cp2y,
-                botX: K.rest.botX + s,
-            };
-        }
-
-        // ═══════════════════════════════════════════════════
-        // SVG PATH
-        // ═══════════════════════════════════════════════════
-        const pts = computeFlat(-300);
-
-        function buildPath(p) {
-            return `M 0 0
-              L ${p.topX} 0
-              Q ${p.cp1x} ${p.cp1y} ${p.midX} ${p.midY}
-              Q ${p.cp2x} ${p.cp2y} ${p.botX} 1000
-              L 0 1000 Z`;
-        }
-
-        function applyPath() {
-            svgPath.setAttribute("d", buildPath(pts));
-        }
-
-        function updatePreview() {
-            const rest = computeRest();
-            prevPath.setAttribute("d", buildPath(rest));
-        }
-
-        applyPath();
-        updatePreview();
-
-        // ═══════════════════════════════════════════════════
-        // INITIAL STATES
-        // ═══════════════════════════════════════════════════
-        function setInitialStates() {
-            gsap.set([revealL1, revealL2], { yPercent: 130, opacity: 0 });
-            gsap.set(revealL1, { x: -K.revealXOffset });
-            gsap.set(revealL2, { x: K.revealXOffset });
-            gsap.set(revealSub, { y: 50, opacity: 0 });
-            gsap.set(revealCta, { y: 50, opacity: 0, scale: 0.85 });
-            gsap.set(logo, { opacity: 0, x: -40 });
-            gsap.set(card, { opacity: 0, x: -50, scale: 0.97 });
-            gsap.set(desc, { opacity: 0, x: -30 });
-            gsap.set(actions, { opacity: 0, x: -30 });
-            gsap.set(badge, { opacity: 0 });
-            gsap.set(vignette, { opacity: 0 });
-            gsap.set(accentL, { height: 0, opacity: 0 });
-            gsap.set(accentR, { height: 0, opacity: 0 });
-
-            Object.assign(pts, computeFlat(-300));
-            applyPath();
-        }
-
-        setInitialStates();
-
-        // ═══════════════════════════════════════════════════
-        // ENTRY TIMELINE
-        // ═══════════════════════════════════════════════════
-        let entryTL, scrollST, scrollTL;
-
-        function buildEntryTimeline() {
-            const rest = computeRest();
-
-            const tl = gsap.timeline({
-                defaults: { ease: K.contentEase },
-                onComplete: buildScrollTimeline
-            });
-
-            // Loader
-            tl.to(loader, {
-                opacity: 0, duration: 0.4, ease: "power2.inOut",
-                onComplete: () => { if (loader.parentNode) loader.remove(); }
-            });
-
-            // BG zoom
-            tl.fromTo(bg,
-                { scale: K.bgZoomFrom },
-                { scale: K.bgZoomTo, duration: K.bgZoomDur, ease: "power2.out" },
-                K.bgZoomDelay
-            );
-
-            // Arc sweeps in: morphs from flat to curved while sliding in
-            // Start far off-screen in flat form, end at rest position with curves
-            const flatStart = computeFlat(-300);
-
-            // Single smooth animation: slide in AND morph to curved shape simultaneously
-            tl.to(pts, {
-                ...rest,
-                duration: K.arcSweepDur,
-                ease: K.arcSweepEase,
-                onUpdate: applyPath
-            }, K.arcSweepDelay);
-
-            // Content
-            const cs = K.contentStartDelay;
-            const sg = K.contentStagger;
-
-            tl.to(logo, { opacity: 1, x: 0, duration: K.contentDur }, cs);
-            tl.to(card, { opacity: 1, x: 0, scale: 1, duration: K.contentDur * 1.1 }, cs + sg);
-            tl.to(desc, { opacity: 1, x: 0, duration: K.contentDur * 0.9 }, cs + sg * 2);
-            tl.to(actions, { opacity: 1, x: 0, duration: K.contentDur * 0.9 }, cs + sg * 3);
-
-            // Badge
-            tl.to(badge, { opacity: 1, duration: K.badgeDur, ease: "power2.out" }, K.badgeDelay);
-
-            return tl;
-        }
-
-        // ═══════════════════════════════════════════════════
-        // SCROLL TIMELINE
-        // ═══════════════════════════════════════════════════
-        function buildScrollTimeline() {
-            const rest = computeRest();
-
-            // Exit target: curves flatten first, then slide off
-            // Midway: shape but shifted left
-            const flatAtEdge = computeFlat(rest.topX * 0.3);
-            const gone = computeFlat(-300);
-
-            scrollTL = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#rgHeroWrap",
-                    start: "top top",
-                    end: `+=${K.pinDistance}`,
-                    scrub: K.scrub,
-                    pin: true,
-                    anticipatePin: 1,
-                    id: "heroPin"
-                }
-            });
-
-            // ── A: Content fades ──
-            const els = [logo, card, desc, actions];
-            els.forEach((el, i) => {
-                scrollTL.to(el, {
-                    opacity: 0, x: -50 - i * 10,
-                    duration: K.contentFadeDur, ease: "power2.in"
-                }, i * K.contentFadeStagger);
-            });
-            scrollTL.to(badge, { opacity: 0, scale: 0.7, duration: 0.06, ease: "power2.in" }, 0);
-
-            // ── B: Arc flows back — flattens at left edge, then slides off ──
-            // Step 1: Arc moves to left edge and flattens completely while still visible
-            const flattenAtEdge = computeFlat(50);
-            scrollTL.to(pts, {
-                ...flattenAtEdge,
-                duration: K.arcExitDur * 0.65,
-                ease: "power2.inOut",
-                onUpdate: applyPath
-            }, K.arcExitDelay);
-
-            // Step 2: Flat edge slides off screen (overlaps slightly for smooth flow)
-            scrollTL.to(pts, {
-                ...gone,
-                duration: K.arcExitDur * 0.4,
-                ease: "power1.in",
-                onUpdate: applyPath
-            }, K.arcExitDelay + K.arcExitDur * 0.55);
-
-            // ── C: Vignette ──
-            scrollTL.to(vignette, {
-                opacity: K.vignetteMax, duration: K.vignetteDur, ease: "power1.out"
-            }, K.vignetteDelay);
-
-            // ── D: BG ──
-            scrollTL.to(bg, {
-                scale: K.bgSettleScale, duration: K.bgSettleDur, ease: "power1.out"
-            }, 0.15);
-
-            // ── E: Accents ──
-            scrollTL.to(accentL, {
-                height: K.accentLH, opacity: 0.5, duration: K.accentDur, ease: "power3.out"
-            }, K.accentDelay);
-            scrollTL.to(accentR, {
-                height: K.accentRH, opacity: 0.4, duration: K.accentDur, ease: "power3.out"
-            }, K.accentDelay + 0.04);
-
-            // ── F: Reveal ──
-            scrollTL.to(revealL1, {
-                yPercent: 0, opacity: 1, x: 0,
-                duration: K.revealDur, ease: K.revealEase
-            }, K.revealDelay);
-
-            scrollTL.to(revealL2, {
-                yPercent: 0, opacity: 1, x: 0,
-                duration: K.revealDur, ease: K.revealEase
-            }, K.revealDelay + K.revealStagger);
-
-            scrollTL.to(revealSub, {
-                y: 0, opacity: 1,
-                duration: K.revealDur * 0.8, ease: "power3.out"
-            }, K.revealDelay + K.revealStagger * 2);
-
-            scrollTL.to(revealCta, {
-                y: 0, opacity: 1, scale: 1,
-                duration: K.ctaDur, ease: K.ctaEase
-            }, K.ctaDelay);
-
-            // ── G: Hold ──
-            scrollTL.to({}, { duration: K.holdDur });
-
-            scrollST = scrollTL.scrollTrigger;
-        }
-
-        // ═══════════════════════════════════════════════════
-        // BOOT
-        // ═══════════════════════════════════════════════════
-        window.addEventListener("load", () => {
-            entryTL = buildEntryTimeline();
-        });
-
-        badge.addEventListener("click", () => {
-            window.scrollTo({ top: 120, behavior: "smooth" });
-        });
-
-        // ═══════════════════════════════════════════════════
-        // DEBUG PANEL
-        // ═══════════════════════════════════════════════════
-        const debugPanel = q("debugPanel");
-        const debugToggle = q("debugToggle");
-        let panelOpen = false;
-
-        debugToggle.addEventListener("click", () => {
-            panelOpen = !panelOpen;
-            debugPanel.style.display = panelOpen ? "block" : "none";
-            debugToggle.textContent = panelOpen ? "✕" : "⚙";
-        });
-
-        // Simple knobs → K direct
-        const simpleKnobs = {
-            k_bgZoomDur: "bgZoomDur",
-            k_arcSweepDur: "arcSweepDur",
-            k_arcSweepDelay: "arcSweepDelay",
-            k_contentStagger: "contentStagger",
-            k_contentDur: "contentDur",
-            k_scrub: "scrub",
-            k_pinDist: "pinDistance",
-            k_arcExitDur: "arcExitDur",
-            k_vigMax: "vignetteMax",
-            k_revealDur: "revealDur",
-            k_holdDur: "holdDur",
-        };
-
-        Object.entries(simpleKnobs).forEach(([inputId, key]) => {
-            const input = q(inputId);
-            if (!input) return;
-            const valSpan = q("v_" + inputId.slice(2));
-            input.addEventListener("input", () => {
-                const v = parseFloat(input.value);
-                K[key] = v;
-                if (valSpan) valSpan.textContent = v;
-            });
-        });
-
-        // Shape knobs → K.rest + live preview
-        const shapeKnobs = {
-            k_topX: "topX",
-            k_cp1x: "cp1x",
-            k_cp1y: "cp1y",
-            k_midX: "midX",
-            k_midY: "midY",
-            k_cp2x: "cp2x",
-            k_cp2y: "cp2y",
-            k_botX: "botX",
-        };
-
-        Object.entries(shapeKnobs).forEach(([inputId, key]) => {
-            const input = q(inputId);
-            if (!input) return;
-            const valSpan = q("v_" + inputId.slice(2));
-            input.addEventListener("input", () => {
-                const v = parseFloat(input.value);
-                K.rest[key] = v;
-                if (valSpan) valSpan.textContent = v;
-                updatePreview();
-            });
-        });
-
-        // Shift X
-        q("k_shiftX").addEventListener("input", function () {
-            K.shiftX = parseFloat(this.value);
-            q("v_shiftX").textContent = this.value;
-            updatePreview();
-        });
-
-        // Apply shape live (updates the actual hero SVG to resting shape)
-        q("debugApplyShape").addEventListener("click", () => {
-            const rest = computeRest();
-            gsap.to(pts, {
-                ...rest,
-                duration: 0.6,
-                ease: "power2.inOut",
-                onUpdate: applyPath
-            });
-        });
-
-        // Replay
-        q("debugReplay").addEventListener("click", () => {
-            if (scrollST) { scrollST.kill(); scrollST = null; }
-            if (scrollTL) { scrollTL.kill(); scrollTL = null; }
-            if (entryTL) { entryTL.kill(); entryTL = null; }
-
-            window.scrollTo(0, 0);
-            setInitialStates();
-            gsap.set(bg, { scale: K.bgZoomFrom, y: 0 });
-
-            setTimeout(() => {
-                ScrollTrigger.refresh();
-                entryTL = buildEntryTimeline();
-            }, 150);
-        });
-
-        // Log
-        q("debugLog").addEventListener("click", () => {
-            console.log("═══ CURRENT VALUES ═══");
-            console.log(JSON.stringify(K, null, 2));
-            console.log("Computed rest:", computeRest());
-            console.log("═══════════════════════");
-
-            const output = [
-                "// Paste these into K.rest:",
-                `topX: ${K.rest.topX}, cp1x: ${K.rest.cp1x}, cp1y: ${K.rest.cp1y},`,
-                `midX: ${K.rest.midX}, midY: ${K.rest.midY},`,
-                `cp2x: ${K.rest.cp2x}, cp2y: ${K.rest.cp2y},`,
-                `botX: ${K.rest.botX},`,
-                `shiftX: ${K.shiftX}`,
-            ].join("\n");
-
-            alert("Logged to console!\n\n" + output);
-        });
-    </script>
+<div class="container">
+  <span class="label">Atelier Button — Elegant Border Animation</span>
+
+  <button class="btn-atelier">
+    <span class="at-top"></span>
+    <span class="at-right"></span>
+    <span class="at-bottom"></span>
+    <span class="at-left"></span>
+    <span class="at-fill"></span>
+    <span class="at-label">Our Process</span>
+    <span class="at-arrow">→</span>
+  </button>
+
+  <button class="btn-atelier">
+    <span class="at-top"></span>
+    <span class="at-right"></span>
+    <span class="at-bottom"></span>
+    <span class="at-left"></span>
+    <span class="at-fill"></span>
+    <span class="at-label">View Portfolio</span>
+    <span class="at-arrow">→</span>
+  </button>
+
+  <button class="btn-atelier">
+    <span class="at-top"></span>
+    <span class="at-right"></span>
+    <span class="at-bottom"></span>
+    <span class="at-left"></span>
+    <span class="at-fill"></span>
+    <span class="at-label">Our Services</span>
+    <span class="at-arrow">→</span>
+  </button>
+</div>
 
 </body>
-
 </html>

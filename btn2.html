@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elegant Architectural Buttons</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rg-navy: #102e50;
+  --rg-gold: #f5c45e;
+  --rg-amber: #e78b48;
+  --rg-crimson: #be3d2a;
+  --rg-dark: #0a1a2e;
+  --rg-darker: #071425;
+  --rg-ink: #f0ead6;
+  --rg-ink-2: rgba(240, 234, 214, 0.72);
+  --expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--rg-darker);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  gap: 100px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.tag {
+  font-family: 'Outfit', sans-serif;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: rgba(245, 196, 94, 0.25);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   01 — SOVEREIGN
+   Magnetic gold slab with diagonal wipe + lift
+   ═══════════════════════════════════════════════════ */
+.btn-sovereign {
+  position: relative;
+  padding: 22px 60px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--rg-darker);
+  background: none;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.btn-sovereign .sv-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #f9d97c, var(--rg-gold), #c9952e);
+  z-index: 0;
+}
+
+/* Diagonal wipe overlay */
+.btn-sovereign .sv-wipe {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(255,255,255,0.18), transparent 60%);
+  z-index: 1;
+  transform: translateX(-101%) skewX(-15deg);
+  transition: transform 0.7s var(--expo);
+}
+
+/* Shimmer line */
+.btn-sovereign .sv-shimmer {
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  z-index: 2;
+  transform: skewX(-20deg);
+  transition: left 0.9s var(--expo);
+  pointer-events: none;
+}
+
+/* Bottom accent */
+.btn-sovereign .sv-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--rg-crimson);
+  z-index: 3;
+  transition: width 0.6s var(--expo) 0.1s;
+}
+
+/* Shadow element */
+.btn-sovereign .sv-shadow {
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 4px 25px rgba(245, 196, 94, 0.2);
+  transition: box-shadow 0.6s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.btn-sovereign .sv-text {
+  position: relative;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Arrow made of pure CSS */
+.btn-sovereign .sv-arrow {
+  display: flex;
+  align-items: center;
+  width: 22px;
+  position: relative;
+}
+
+.btn-sovereign .sv-arrow::before {
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: var(--rg-darker);
+  transition: width 0.4s var(--expo);
+}
+
+.btn-sovereign .sv-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 6px;
+  height: 6px;
+  border-top: 1px solid var(--rg-darker);
+  border-right: 1px solid var(--rg-darker);
+  transform: rotate(45deg);
+  transition: right 0.4s var(--expo);
+}
+
+/* Hover */
+.btn-sovereign:hover .sv-wipe {
+  transform: translateX(0) skewX(-15deg);
+}
+
+.btn-sovereign:hover .sv-shimmer {
+  left: 130%;
+}
+
+.btn-sovereign:hover .sv-accent {
+  width: 100%;
+}
+
+.btn-sovereign:hover .sv-shadow {
+  box-shadow:
+    0 10px 50px rgba(245, 196, 94, 0.3),
+    0 2px 10px rgba(245, 196, 94, 0.15);
+}
+
+.btn-sovereign:hover {
+  transform: translateY(-2px);
+  transition: transform 0.5s var(--expo);
+}
+
+.btn-sovereign:hover .sv-arrow {
+  width: 32px;
+  transition: width 0.4s var(--expo);
+}
+
+.btn-sovereign:active {
+  transform: translateY(0);
+  transition: transform 0.1s;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   02 — MERIDIAN
+   Outlined precision with staggered border draw
+   + rotating plus icon
+   ═══════════════════════════════════════════════════ */
+.btn-meridian {
+  position: relative;
+  padding: 20px 52px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10.5px;
+  font-weight: 300;
+  letter-spacing: 5.5px;
+  text-transform: uppercase;
+  color: var(--rg-ink-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+}
+
+/* Static ghost border */
+.btn-meridian .me-ghost {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(240, 234, 214, 0.08);
+  pointer-events: none;
+}
+
+/* 4 animated border segments */
+.btn-meridian .me-t,
+.btn-meridian .me-r,
+.btn-meridian .me-b,
+.btn-meridian .me-l {
+  position: absolute;
+  background: var(--rg-gold);
+}
+
+.btn-meridian .me-t {
+  top: 0; left: 0; height: 1px; width: 0;
+  transition: width 0.35s var(--expo);
+}
+
+.btn-meridian .me-r {
+  top: 0; right: 0; width: 1px; height: 0;
+  transition: height 0.35s var(--expo) 0.12s;
+}
+
+.btn-meridian .me-b {
+  bottom: 0; right: 0; height: 1px; width: 0;
+  transition: width 0.35s var(--expo) 0.24s;
+}
+
+.btn-meridian .me-l {
+  bottom: 0; left: 0; width: 1px; height: 0;
+  transition: height 0.35s var(--expo) 0.36s;
+}
+
+/* Fill wash */
+.btn-meridian .me-fill {
+  position: absolute;
+  inset: 0;
+  background: rgba(245, 196, 94, 0.03);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.5s var(--expo) 0.15s;
+  z-index: -1;
+}
+
+/* Plus icon */
+.btn-meridian .me-plus {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.btn-meridian .me-plus::before,
+.btn-meridian .me-plus::after {
+  content: '';
+  position: absolute;
+  background: var(--rg-gold);
+  border-radius: 1px;
+  transition: all 0.5s var(--expo) 0.2s;
+  opacity: 0;
+}
+
+.btn-meridian .me-plus::before {
+  top: 50%; left: 0;
+  width: 100%; height: 1px;
+  transform: translateY(-50%) scaleX(0);
+}
+
+.btn-meridian .me-plus::after {
+  left: 50%; top: 0;
+  width: 1px; height: 100%;
+  transform: translateX(-50%) scaleY(0);
+}
+
+.btn-meridian .me-label {
+  position: relative;
+  z-index: 1;
+  transition: color 0.5s ease 0.1s;
+}
+
+/* Hover */
+.btn-meridian:hover .me-t { width: 100%; }
+.btn-meridian:hover .me-r { height: 100%; }
+.btn-meridian:hover .me-b { width: 100%; }
+.btn-meridian:hover .me-l { height: 100%; }
+.btn-meridian:hover .me-fill { transform: scaleY(1); }
+.btn-meridian:hover .me-label { color: var(--rg-gold); }
+
+.btn-meridian:hover .me-plus::before {
+  opacity: 1;
+  transform: translateY(-50%) scaleX(1);
+}
+
+.btn-meridian:hover .me-plus::after {
+  opacity: 1;
+  transform: translateX(-50%) scaleY(1);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   03 — COLONNADE
+   Serif editorial with ruled lines + circle arrow
+   ═══════════════════════════════════════════════════ */
+.btn-colonnade {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  padding: 18px 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: 1.5px;
+  color: rgba(240, 234, 214, 0.45);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Top rule */
+.btn-colonnade .co-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(240, 234, 214, 0.06);
+  overflow: hidden;
+}
+
+.btn-colonnade .co-top::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--rg-gold) 60%, transparent);
+  transform: translateX(-101%);
+  transition: transform 0.7s var(--expo);
+}
+
+/* Bottom rule */
+.btn-colonnade .co-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(240, 234, 214, 0.06);
+  overflow: hidden;
+}
+
+.btn-colonnade .co-bottom::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(270deg, var(--rg-amber) 60%, transparent);
+  transform: translateX(101%);
+  transition: transform 0.7s var(--expo) 0.1s;
+}
+
+/* Circle arrow */
+.btn-colonnade .co-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(240, 234, 214, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.6s var(--expo);
+  overflow: hidden;
+}
+
+/* Circle fill on hover */
+.btn-colonnade .co-circle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--rg-gold);
+  transform: scale(0);
+  transition: transform 0.5s var(--expo);
+}
+
+.btn-colonnade .co-circle .co-arrow {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-colonnade .co-circle .co-arrow::before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 1px;
+  background: rgba(240, 234, 214, 0.3);
+  transition: all 0.4s var(--expo);
+}
+
+.btn-colonnade .co-circle .co-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 5px;
+  height: 5px;
+  border-top: 1px solid rgba(240, 234, 214, 0.3);
+  border-right: 1px solid rgba(240, 234, 214, 0.3);
+  transform: rotate(45deg);
+  transition: all 0.4s var(--expo);
+}
+
+/* Number */
+.btn-colonnade .co-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 3px;
+  color: rgba(245, 196, 94, 0.2);
+  transition: color 0.5s ease;
+  min-width: 24px;
+}
+
+.btn-colonnade .co-label {
+  transition: color 0.5s ease;
+}
+
+/* Hover */
+.btn-colonnade:hover .co-top::after {
+  transform: translateX(0);
+}
+
+.btn-colonnade:hover .co-bottom::after {
+  transform: translateX(0);
+}
+
+.btn-colonnade:hover .co-label {
+  color: var(--rg-ink);
+}
+
+.btn-colonnade:hover .co-num {
+  color: var(--rg-gold);
+}
+
+.btn-colonnade:hover .co-circle {
+  border-color: var(--rg-gold);
+}
+
+.btn-colonnade:hover .co-circle::before {
+  transform: scale(1);
+}
+
+.btn-colonnade:hover .co-circle .co-arrow::before {
+  background: var(--rg-darker);
+  width: 12px;
+}
+
+.btn-colonnade:hover .co-circle .co-arrow::after {
+  border-color: var(--rg-darker);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   04 — BASALT
+   Dark slab with gradient stripe + split sections
+   ═══════════════════════════════════════════════════ */
+.btn-basalt {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+}
+
+/* Left gradient bar */
+.btn-basalt .ba-bar {
+  width: 3px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--rg-gold), var(--rg-amber), var(--rg-crimson));
+  position: relative;
+  overflow: hidden;
+  transition: width 0.5s var(--expo);
+}
+
+.btn-basalt .ba-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.5), transparent, rgba(255,255,255,0.3));
+  transform: translateY(-100%);
+  transition: transform 0.8s var(--expo);
+}
+
+/* Main body */
+.btn-basalt .ba-body {
+  padding: 20px 40px;
+  background: var(--rg-navy);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.5s ease;
+}
+
+/* Inner glow */
+.btn-basalt .ba-body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(245, 196, 94, 0.06), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Bottom gold line */
+.btn-basalt .ba-body::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--rg-gold), transparent);
+  transition: width 0.6s var(--expo);
+}
+
+.btn-basalt .ba-title {
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 4.5px;
+  text-transform: uppercase;
+  color: var(--rg-ink-2);
+  transition: color 0.4s ease;
+}
+
+.btn-basalt .ba-sub {
+  font-size: 9px;
+  font-weight: 200;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(240, 234, 214, 0.18);
+  transition: color 0.5s ease;
+}
+
+/* Arrow section */
+.btn-basalt .ba-action {
+  width: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.15);
+  border-left: 1px solid rgba(245, 196, 94, 0.06);
+  flex-shrink: 0;
+  transition: all 0.5s ease;
+}
+
+.btn-basalt .ba-action svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: rgba(245, 196, 94, 0.4);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: all 0.4s var(--expo);
+}
+
+/* Hover */
+.btn-basalt:hover .ba-bar {
+  width: 5px;
+}
+
+.btn-basalt:hover .ba-bar::after {
+  transform: translateY(100%);
+}
+
+.btn-basalt:hover .ba-body::before {
+  opacity: 1;
+}
+
+.btn-basalt:hover .ba-body::after {
+  width: 100%;
+}
+
+.btn-basalt:hover .ba-title {
+  color: var(--rg-ink);
+}
+
+.btn-basalt:hover .ba-sub {
+  color: rgba(245, 196, 94, 0.4);
+}
+
+.btn-basalt:hover .ba-action {
+  background: rgba(245, 196, 94, 0.06);
+  border-left-color: rgba(245, 196, 94, 0.12);
+}
+
+.btn-basalt:hover .ba-action svg {
+  stroke: var(--rg-gold);
+  transform: translateX(3px);
+}
+
+
+/* ═══════════════════════════════════════════════════
+   05 — APEX
+   Grand hero CTA — double frame + crimson curtain
+   reveal + corner ornaments
+   ═══════════════════════════════════════════════════ */
+.btn-apex {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 80px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--rg-ink);
+  background: none;
+  border: none;
+  cursor: pointer;
+  isolation: isolate;
+}
+
+/* Outer frame */
+.btn-apex .ap-outer {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(245, 196, 94, 0.12);
+  transition: border-color 0.6s ease;
+  pointer-events: none;
+}
+
+/* Inner frame */
+.btn-apex .ap-inner {
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(245, 196, 94, 0.05);
+  transition: border-color 0.6s ease 0.1s;
+  pointer-events: none;
+}
+
+/* Curtain left */
+.btn-apex .ap-cl {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  bottom: 5px;
+  width: 0;
+  background: var(--rg-crimson);
+  z-index: -1;
+  transition: width 0.7s var(--expo);
+  overflow: hidden;
+}
+
+/* Curtain right */
+.btn-apex .ap-cr {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  bottom: 5px;
+  width: 0;
+  background: var(--rg-crimson);
+  z-index: -1;
+  transition: width 0.7s var(--expo) 0.05s;
+  overflow: hidden;
+}
+
+/* Inner curtain gradients for depth */
+.btn-apex .ap-cl::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.15), transparent);
+}
+
+.btn-apex .ap-cr::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(270deg, rgba(0,0,0,0.15), transparent);
+}
+
+/* Corner ornaments (4 L-shapes) */
+.btn-apex .ap-c {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.btn-apex .ap-c::before,
+.btn-apex .ap-c::after {
+  content: '';
+  position: absolute;
+  background: var(--rg-gold);
+  transition: all 0.5s var(--expo);
+}
+
+/* Top-left */
+.btn-apex .ap-c.tl { top: -1px; left: -1px; }
+.btn-apex .ap-c.tl::before { top: 0; left: 0; width: 0; height: 1px; }
+.btn-apex .ap-c.tl::after  { top: 0; left: 0; width: 1px; height: 0; }
+
+/* Top-right */
+.btn-apex .ap-c.tr { top: -1px; right: -1px; }
+.btn-apex .ap-c.tr::before { top: 0; right: 0; width: 0; height: 1px; }
+.btn-apex .ap-c.tr::after  { top: 0; right: 0; width: 1px; height: 0; }
+
+/* Bottom-right */
+.btn-apex .ap-c.br { bottom: -1px; right: -1px; }
+.btn-apex .ap-c.br::before { bottom: 0; right: 0; width: 0; height: 1px; }
+.btn-apex .ap-c.br::after  { bottom: 0; right: 0; width: 1px; height: 0; }
+
+/* Bottom-left */
+.btn-apex .ap-c.bl { bottom: -1px; left: -1px; }
+.btn-apex .ap-c.bl::before { bottom: 0; left: 0; width: 0; height: 1px; }
+.btn-apex .ap-c.bl::after  { bottom: 0; left: 0; width: 1px; height: 0; }
+
+/* Center horizontal accent */
+.btn-apex .ap-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 1px;
+  background: rgba(245, 196, 94, 0.15);
+  z-index: -1;
+  transition: width 0.7s var(--expo) 0.2s;
+}
+
+/* Radial glow */
+.btn-apex .ap-glow {
+  position: absolute;
+  inset: -30px;
+  background: radial-gradient(ellipse at center, rgba(190, 61, 42, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.btn-apex .ap-text {
+  position: relative;
+  z-index: 3;
+  transition:
+    letter-spacing 0.7s var(--expo),
+    text-shadow 0.5s ease;
+}
+
+/* Hover */
+.btn-apex:hover .ap-outer {
+  border-color: rgba(245, 196, 94, 0.35);
+}
+
+.btn-apex:hover .ap-inner {
+  border-color: rgba(245, 196, 94, 0.1);
+}
+
+.btn-apex:hover .ap-cl {
+  width: calc(50% - 5px);
+}
+
+.btn-apex:hover .ap-cr {
+  width: calc(50% - 5px);
+}
+
+/* Corners expand */
+.btn-apex:hover .ap-c::before { width: 18px; }
+.btn-apex:hover .ap-c::after  { height: 18px; }
+
+.btn-apex:hover .ap-line {
+  width: 50%;
+}
+
+.btn-apex:hover .ap-glow {
+  opacity: 1;
+}
+
+.btn-apex:hover .ap-text {
+  letter-spacing: 11px;
+  text-shadow: 0 0 30px rgba(245, 196, 94, 0.1);
+}
+
+.btn-apex:active {
+  transform: scale(0.98);
+  transition: transform 0.1s;
+}
+
+.btn-apex:active .ap-cl,
+.btn-apex:active .ap-cr {
+  filter: brightness(0.85);
+}
+
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media (max-width: 600px) {
+  body { gap: 70px; padding: 50px 16px; }
+  .btn-sovereign { padding: 18px 40px; letter-spacing: 3.5px; }
+  .btn-meridian { padding: 16px 36px; letter-spacing: 3.5px; }
+  .btn-colonnade { font-size: 17px; gap: 18px; }
+  .btn-basalt .ba-body { padding: 16px 28px; }
+  .btn-apex { padding: 24px 48px; letter-spacing: 5px; font-size: 13px; }
+  .btn-apex:hover .ap-text { letter-spacing: 7px; }
+}
+</style>
+</head>
+<body>
+
+
+<!-- 01 SOVEREIGN -->
+<div class="group">
+  <span class="tag">01 · Primary CTA</span>
+  <button class="btn-sovereign">
+    <span class="sv-bg"></span>
+    <span class="sv-wipe"></span>
+    <span class="sv-shimmer"></span>
+    <span class="sv-accent"></span>
+    <span class="sv-shadow"></span>
+    <span class="sv-text">
+      Start Your Project
+      <span class="sv-arrow"></span>
+    </span>
+  </button>
+</div>
+
+
+<!-- 02 MERIDIAN -->
+<div class="group">
+  <span class="tag">02 · Secondary</span>
+  <button class="btn-meridian">
+    <span class="me-ghost"></span>
+    <span class="me-t"></span>
+    <span class="me-r"></span>
+    <span class="me-b"></span>
+    <span class="me-l"></span>
+    <span class="me-fill"></span>
+    <span class="me-label">View Portfolio</span>
+    <span class="me-plus"></span>
+  </button>
+</div>
+
+
+<!-- 03 COLONNADE -->
+<div class="group">
+  <span class="tag">03 · Navigation</span>
+  <button class="btn-colonnade">
+    <span class="co-top"></span>
+    <span class="co-bottom"></span>
+    <span class="co-num">01</span>
+    <span class="co-label">Residential Architecture</span>
+    <span class="co-circle">
+      <span class="co-arrow"></span>
+    </span>
+  </button>
+</div>
+
+
+<!-- 04 BASALT -->
+<div class="group">
+  <span class="tag">04 · Utility / Download</span>
+  <button class="btn-basalt">
+    <span class="ba-bar"></span>
+    <div class="ba-body">
+      <span class="ba-title">Schedule Consultation</span>
+      <span class="ba-sub">30 min · In-person or Virtual</span>
+    </div>
+    <span class="ba-action">
+      <svg viewBox="0 0 24 24">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </span>
+  </button>
+</div>
+
+
+<!-- 05 APEX -->
+<div class="group">
+  <span class="tag">05 · Grand Hero CTA</span>
+  <button class="btn-apex">
+    <span class="ap-outer"></span>
+    <span class="ap-inner"></span>
+    <span class="ap-cl"></span>
+    <span class="ap-cr"></span>
+    <span class="ap-c tl"></span>
+    <span class="ap-c tr"></span>
+    <span class="ap-c br"></span>
+    <span class="ap-c bl"></span>
+    <span class="ap-line"></span>
+    <span class="ap-glow"></span>
+    <span class="ap-text">Begin Your Vision</span>
+  </button>
+</div>
+
+
+</body>
+</html>
