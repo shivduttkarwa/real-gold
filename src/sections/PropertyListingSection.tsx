@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, FreeMode } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import {
   Home,
   MapPin,
@@ -22,7 +22,6 @@ import "./PropertyListingsection.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "swiper/css/free-mode";
 
 type Category = "for-sale" | "sold" | "for-rent";
 
@@ -78,52 +77,6 @@ const propertiesData = [
     views: 456,
   },
   {
-    id: 4,
-    category: "for-sale" as Category,
-    title: "Mountain Retreat",
-    location: "Aspen, CO",
-    price: 4200000,
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
-    beds: 5,
-    baths: 5,
-    sqft: 5500,
-    garage: 3,
-    features: ["Ski Access", "Fireplace", "Sauna"],
-    views: 312,
-  },
-  {
-    id: 5,
-    category: "for-sale" as Category,
-    title: "Urban Loft Living",
-    location: "San Francisco, CA",
-    price: 1850000,
-    image:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
-    beds: 3,
-    baths: 2,
-    sqft: 2400,
-    garage: 1,
-    features: ["High Ceilings", "Industrial", "Rooftop"],
-    isNew: true,
-    views: 178,
-  },
-  {
-    id: 6,
-    category: "for-sale" as Category,
-    title: "Classic Colonial Home",
-    location: "Greenwich, CT",
-    price: 2950000,
-    image:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
-    beds: 6,
-    baths: 4,
-    sqft: 5200,
-    garage: 2,
-    features: ["Library", "Garden", "Pool House"],
-    views: 267,
-  },
-  {
     id: 7,
     category: "sold" as Category,
     title: "Riverside Mansion",
@@ -173,57 +126,6 @@ const propertiesData = [
     features: ["Golf View", "Infinity Pool", "Outdoor Kitchen"],
     soldDate: "3 days ago",
     daysOnMarket: 8,
-  },
-  {
-    id: 10,
-    category: "sold" as Category,
-    title: "Historic Brownstone",
-    location: "Boston, MA",
-    price: 2100000,
-    soldPrice: 2250000,
-    image:
-      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80",
-    beds: 4,
-    baths: 3,
-    sqft: 3200,
-    garage: 0,
-    features: ["Original Details", "Garden", "Renovated"],
-    soldDate: "1 month ago",
-    daysOnMarket: 5,
-  },
-  {
-    id: 11,
-    category: "sold" as Category,
-    title: "Lakefront Cottage",
-    location: "Lake Tahoe, NV",
-    price: 1450000,
-    soldPrice: 1480000,
-    image:
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
-    beds: 3,
-    baths: 2,
-    sqft: 2100,
-    garage: 1,
-    features: ["Lake Access", "Fireplace", "Deck"],
-    soldDate: "2 months ago",
-    daysOnMarket: 22,
-  },
-  {
-    id: 12,
-    category: "sold" as Category,
-    title: "Modern Farmhouse",
-    location: "Nashville, TN",
-    price: 1280000,
-    soldPrice: 1300000,
-    image:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
-    beds: 4,
-    baths: 3,
-    sqft: 3600,
-    garage: 2,
-    features: ["Barn", "Acreage", "Modern Design"],
-    soldDate: "3 weeks ago",
-    daysOnMarket: 14,
   },
   {
     id: 13,
@@ -276,63 +178,12 @@ const propertiesData = [
     deposit: 9600,
     minLease: "12 months",
   },
-  {
-    id: 16,
-    category: "for-rent" as Category,
-    title: "Executive Suite",
-    location: "Washington, DC",
-    price: 6500,
-    image:
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80",
-    beds: 2,
-    baths: 2,
-    sqft: 1800,
-    garage: 1,
-    features: ["Luxury Finishes", "Doorman", "Rooftop"],
-    badge: "Corporate Ready",
-    deposit: 13000,
-    minLease: "12 months",
-  },
-  {
-    id: 17,
-    category: "for-rent" as Category,
-    title: "Beachfront Condo",
-    location: "San Diego, CA",
-    price: 5200,
-    image:
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
-    beds: 2,
-    baths: 2,
-    sqft: 1400,
-    garage: 1,
-    features: ["Beach Access", "Balcony", "A/C"],
-    badge: "Short Term OK",
-    deposit: 10400,
-    minLease: "3 months",
-  },
-  {
-    id: 18,
-    category: "for-rent" as Category,
-    title: "Artist's Warehouse",
-    location: "Portland, OR",
-    price: 3800,
-    image:
-      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800&q=80",
-    beds: 2,
-    baths: 1,
-    sqft: 1900,
-    garage: 0,
-    features: ["Live/Work", "Natural Light", "Open Plan"],
-    badge: "Creative Space",
-    deposit: 7600,
-    minLease: "12 months",
-  },
 ];
 
 const filterTabs = [
-  { id: "for-sale", label: "For Sale", icon: Tag, count: 6 },
-  { id: "sold", label: "Sold", icon: CheckCircle, count: 6 },
-  { id: "for-rent", label: "For Rent", icon: Key, count: 6 },
+  { id: "for-sale", label: "For Sale", icon: Tag, count: 3 },
+  { id: "sold", label: "Sold", icon: CheckCircle, count: 3 },
+  { id: "for-rent", label: "For Rent", icon: Key, count: 3 },
 ];
 
 const formatPrice = (price: number, isRent: boolean = false) => {
@@ -510,9 +361,7 @@ const PropertyCard = ({
           </div>
         )}
 
-        <button
-          className={`card-btn ${isSold ? "btn-secondary" : "btn-primary"}`}
-        >
+        <button className="card-btn btn-primary">
           <span>
             {isSold
               ? "View Details"
@@ -528,12 +377,24 @@ const PropertyCard = ({
 };
 
 const PropertyListingSection = () => {
-  const [activeFilter, setActiveFilter] = useState<Category | "*">("*");
+  const [activeFilter, setActiveFilter] = useState<Category | "*">("for-sale");
+  const [displayedFilter, setDisplayedFilter] = useState<Category | "*">("for-sale");
+  const [isExiting, setIsExiting] = useState(false);
 
-  const filtered =
-    activeFilter === "*"
+  const displayed =
+    displayedFilter === "*"
       ? propertiesData
-      : propertiesData.filter((p) => p.category === activeFilter);
+      : propertiesData.filter((p) => p.category === displayedFilter);
+
+  const handleFilterChange = (filter: Category | "*") => {
+    if (filter === activeFilter || isExiting) return;
+    setActiveFilter(filter);
+    setIsExiting(true);
+    setTimeout(() => {
+      setDisplayedFilter(filter);
+      setIsExiting(false);
+    }, 280);
+  };
 
   return (
     <section className="property-section">
@@ -541,7 +402,7 @@ const PropertyListingSection = () => {
         <header className="section-header">
           <div className="section-badge">
             <Building2 size={16} />
-            <span>Featured Properties</span>
+            <span>Prime Listings</span>
           </div>
           <h2 className="section-title">
             Discover Your <em>Dream Home</em>
@@ -555,18 +416,16 @@ const PropertyListingSection = () => {
         <div className="filter-wrapper">
           <div className="filter-tabs">
             <button
-              onClick={() => setActiveFilter("*")}
+              onClick={() => handleFilterChange("*")}
               className={`filter-tab ${activeFilter === "*" ? "active" : ""}`}
-              data-filter="*"
             >
               <span>All</span>
             </button>
             {filterTabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveFilter(tab.id as Category)}
+                onClick={() => handleFilterChange(tab.id as Category)}
                 className={`filter-tab ${activeFilter === tab.id ? "active" : ""}`}
-                data-filter={`.${tab.id}`}
               >
                 <tab.icon size={16} />
                 <span>{tab.label}</span>
@@ -575,20 +434,26 @@ const PropertyListingSection = () => {
           </div>
         </div>
 
-        <div key={activeFilter} className="property-grid">
-          {filtered.map((property, index) => (
+        <div
+          key={displayedFilter}
+          className={`property-grid ${isExiting ? "grid-exiting" : "grid-entering"}`}
+        >
+          {displayed.map((property, index) => (
             <PropertyCard key={property.id} property={property} cardIndex={index} />
           ))}
         </div>
 
-        <div key={`swiper-${activeFilter}`} className="property-swiper-wrapper">
+        <div
+          key={`swiper-${displayedFilter}`}
+          className={`property-swiper-wrapper ${isExiting ? "swiper-exiting" : "swiper-entering"}`}
+        >
           <Swiper
-            modules={[Navigation, Pagination, FreeMode]}
+            modules={[Navigation, Pagination]}
             spaceBetween={16}
             slidesPerView={1.15}
             centeredSlides={false}
             grabCursor={true}
-            freeMode={{ enabled: true, sticky: false, momentumRatio: 0.8 }}
+            speed={420}
             pagination={{ clickable: true, dynamicBullets: true }}
             navigation={{
               prevEl: ".swiper-btn-prev",
@@ -600,7 +465,7 @@ const PropertyListingSection = () => {
             }}
             className="property-swiper"
           >
-            {filtered.map((property, index) => (
+            {displayed.map((property, index) => (
               <SwiperSlide key={property.id}>
                 <PropertyCard property={property} cardIndex={index} />
               </SwiperSlide>

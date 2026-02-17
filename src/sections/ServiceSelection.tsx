@@ -1,0 +1,181 @@
+import {
+  Home,
+  Key,
+  Building,
+  ArrowRight,
+  TrendingUp,
+  Search,
+  CalendarCheck,
+  MessageCircle,
+  Phone,
+} from "lucide-react";
+import "./ServiceSelection.css";
+
+const services = [
+  {
+    id: "buy",
+    icon: Search,
+    secondaryIcon: Key,
+    headline: "Buy",
+    title: "I Want to Buy",
+    subtitle: "My Dream Home",
+    description:
+      "Discover your perfect home from our curated collection of premium properties across prime locations.",
+    features: ["Verified Listings", "Virtual Tours", "Expert Guidance"],
+    cta: "Start Searching",
+    theme: "buy",
+  },
+  {
+    id: "sell",
+    icon: TrendingUp,
+    secondaryIcon: Home,
+    headline: "Sell",
+    title: "I Want to Sell",
+    subtitle: "My Property",
+    description:
+      "Get the best value for your property with our expert guidance and extensive network of qualified buyers.",
+    features: [
+      "Free Valuation",
+      "Professional Photography",
+      "Maximum Exposure",
+    ],
+    cta: "Start Selling",
+    theme: "sell",
+  },
+  {
+    id: "rent",
+    icon: CalendarCheck,
+    secondaryIcon: Building,
+    headline: "Rent",
+    title: "I Want to Rent",
+    subtitle: "A Perfect Space",
+    description:
+      "Find your ideal rental property with flexible terms and transparent pricing. Move in with confidence.",
+    features: ["Flexible Leases", "Verified Landlords", "Quick Move-in"],
+    cta: "Find Rentals",
+    theme: "rent",
+  },
+];
+
+const ServiceSelection = () => {
+  return (
+    <section className="svc">
+      <div className="svc__container">
+        {/* Header */}
+        <header className="svc__header">
+          <span className="svc__eyebrow">How Can We Help You?</span>
+          <h2 className="svc__title">
+            What Are You <em>Looking For?</em>
+          </h2>
+          <p className="svc__subtitle">
+            Whether you're buying, selling, or renting — we're here to make your
+            real estate journey seamless and rewarding.
+          </p>
+        </header>
+
+        {/* Service Cards */}
+        <div className="svc__grid">
+          {services.map((service) => (
+            <article
+              key={service.id}
+              className={`svc-card svc-card--${service.theme}`}
+            >
+              {/* Card Header */}
+              <div className="svc-card__header">
+                <div className="svc-card__icon-wrap">
+                  <service.icon className="svc-card__icon" />
+                </div>
+                <span className="svc-card__headline">{service.headline}</span>
+              </div>
+
+              {/* Card Content */}
+              <div className="svc-card__content">
+                <h3 className="svc-card__title">{service.title}</h3>
+                <p className="svc-card__title-sub">{service.subtitle}</p>
+                <p className="svc-card__desc">{service.description}</p>
+
+                {/* Features */}
+                <ul className="svc-card__features">
+                  {service.features.map((feature, idx) => (
+                    <li key={idx} className="svc-card__feature">
+                      <span className="svc-card__feature-dot" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Card Footer */}
+              <div className="svc-card__footer">
+                <button className="svc-card__btn">
+                  <span>{service.cta}</span>
+                  <ArrowRight size={18} />
+                </button>
+              </div>
+
+              {/* Background Icon */}
+              <service.secondaryIcon className="svc-card__bg-icon" />
+            </article>
+          ))}
+        </div>
+      </div>
+
+      {/* CTA Banner */}
+      <div className="svc-cta">
+        <div className="svc-cta__container">
+          {/* Decorative Elements */}
+          <div className="svc-cta__decor svc-cta__decor--left" />
+          <div className="svc-cta__decor svc-cta__decor--right" />
+
+          {/* Content */}
+          <div className="svc-cta__content">
+            <span className="svc-cta__eyebrow">Need Guidance?</span>
+            <h3 className="svc-cta__title">
+              Not Sure Where to <em>Start?</em>
+            </h3>
+            <p className="svc-cta__text">
+              Our experienced advisors are here to understand your needs and
+              guide you through every step of your real estate journey.
+            </p>
+
+            {/* CTA Buttons */}
+            <div className="svc-cta__actions">
+              <a href="/contact" className="svc-cta__btn svc-cta__btn--primary">
+                <MessageCircle size={20} />
+                <span>Talk to an Expert</span>
+                <ArrowRight size={18} />
+              </a>
+              <a
+                href="tel:+1234567890"
+                className="svc-cta__btn svc-cta__btn--secondary"
+              >
+                <Phone size={18} />
+                <span>+1 (234) 567-890</span>
+              </a>
+            </div>
+
+            {/* Trust Indicators */}
+            <div className="svc-cta__trust">
+              <div className="svc-cta__trust-item">
+                <span className="svc-cta__trust-value">15+</span>
+                <span className="svc-cta__trust-label">Years Experience</span>
+              </div>
+              <div className="svc-cta__trust-divider" />
+              <div className="svc-cta__trust-item">
+                <span className="svc-cta__trust-value">2,500+</span>
+                <span className="svc-cta__trust-label">Happy Clients</span>
+              </div>
+              <div className="svc-cta__trust-divider" />
+              <div className="svc-cta__trust-item">
+                <span className="svc-cta__trust-value">24/7</span>
+                <span className="svc-cta__trust-label">Support Available</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ServiceSelection;
