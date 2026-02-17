@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger);
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import {
@@ -378,8 +381,35 @@ const PropertyCard = ({
 
 const PropertyListingSection = () => {
   const [activeFilter, setActiveFilter] = useState<Category | "*">("for-sale");
-  const [displayedFilter, setDisplayedFilter] = useState<Category | "*">("for-sale");
+  const [displayedFilter, setDisplayedFilter] = useState<Category | "*">(
+    "for-sale",
+  );
   const [isExiting, setIsExiting] = useState(false);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const cards =
+      gridRef.current?.querySelectorAll<HTMLElement>(".property-card");
+    if (!cards?.length) return;
+
+    gsap.set(cards, { clipPath: "inset(100% 0 0 0)", willChange: "clip-path" });
+
+    ScrollTrigger.create({
+      trigger: gridRef.current,
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.to(cards, {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1.2,
+          ease: "power3.inOut",
+          stagger: 0.12,
+          onComplete: () =>
+            gsap.set(cards, { clearProps: "will-change,clip-path" }),
+        });
+      },
+    });
+  }, []);
 
   const displayed =
     displayedFilter === "*"
@@ -404,17 +434,34 @@ const PropertyListingSection = () => {
             <Building2 size={16} />
             <span>Prime Listings</span>
           </div>
-          <h2 className="section-title" data-gsap="char-reveal" data-gsap-start="top 85%">
+          <h2
+            className="section-title"
+            data-gsap="char-reveal"
+            data-gsap-start="top 85%"
+          >
             Discover Your <em>Dream Home</em>
           </h2>
-          <p className="section-subtitle" data-gsap="fade-up" data-gsap-delay="0.15">
+          <p
+            className="section-subtitle"
+            data-gsap="fade-up"
+            data-gsap-delay="0.15"
+          >
             Explore our handpicked collection of premium properties designed for
             modern living
           </p>
         </header>
 
-        <div className="filter-wrapper">
-          <div className="filter-tabs">
+        <div
+          className="filter-wrapper"
+          data-gsap="fade-up"
+          data-gsap-delay="0.1"
+        >
+          <div
+            className="filter-tabs"
+            data-gsap="fade-right"
+            data-gsap-stagger="0.09"
+            data-gsap-delay="0.25"
+          >
             <button
               onClick={() => handleFilterChange("*")}
               className={`filter-tab ${activeFilter === "*" ? "active" : ""}`}
@@ -435,11 +482,16 @@ const PropertyListingSection = () => {
         </div>
 
         <div
+          ref={gridRef}
           key={displayedFilter}
           className={`property-grid ${isExiting ? "grid-exiting" : "grid-entering"}`}
         >
           {displayed.map((property, index) => (
-            <PropertyCard key={property.id} property={property} cardIndex={index} />
+            <PropertyCard
+              key={property.id}
+              property={property}
+              cardIndex={index}
+            />
           ))}
         </div>
 
@@ -486,14 +538,19 @@ const PropertyListingSection = () => {
         </div>
 
         <div className="view-all-wrapper">
-          <button className="view-all-btn">
+          <button className="view-all-btn" data-gsap="btn-clip-reveal">
             <span>View All Properties</span>
             <ArrowRight size={18} />
           </button>
         </div>
 
-        <div className="stats-bar">
-          <div className="stats-grid">
+        <div className="stats-bar" data-gsap="fade-up">
+          <div
+            className="stats-grid"
+            data-gsap="zoom-in"
+            data-gsap-stagger="0.22"
+            data-gsap-delay="0.2"
+          >
             <div className="stat-card">
               <div className="stat-card-icon">
                 <Home size={24} />
