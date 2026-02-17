@@ -1,4 +1,5 @@
-import PropDetail, { ContactFormData, PropertyData } from "./PropDetails";
+import PropDetail from "./PropDetails";
+import type { ContactFormData, PropertyData } from "./PropDetails";
 
 const sampleProperty: PropertyData = {
   id: "RGP-2024-0847",
