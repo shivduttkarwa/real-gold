@@ -3865,37 +3865,43 @@ class GSAPAnimations {
   }
 
   // ── Clip Smooth Down: reveals top-to-bottom, GPU-composited ──
+  // When data-gsap-stagger is set, clips each child element individually with stagger
   clipSmoothDown(el, config) {
     if (!el) return;
     if (el.dataset.clipSmoothDownInit === 'true') return;
     el.dataset.clipSmoothDownInit = 'true';
 
-    const img = el.tagName === 'IMG' ? el : el.querySelector('img');
     const start = el.hasAttribute('data-gsap-start') ? config.start : 'top 85%';
     const duration = el.hasAttribute('data-gsap-duration') && Number.isFinite(config.duration) ? config.duration : 1.8;
     const delay = el.hasAttribute('data-gsap-delay') && Number.isFinite(config.delay) ? config.delay : 0;
+    const stagger = config.stagger !== null ? config.stagger : 0;
 
-    gsap.set(el, { clipPath: 'inset(0 0 100% 0)', willChange: 'clip-path' });
-    if (img && img !== el) gsap.set(img, { scale: 1.1, willChange: 'transform' });
+    const children = el.children.length > 0 ? Array.from(el.children) : null;
+    const targets = children && stagger ? children : [el];
 
-    const tl = gsap.timeline({
+    targets.forEach(target => {
+      const img = target.tagName === 'IMG' ? target : target.querySelector('img');
+      if (img && img !== target) gsap.set(img, { scale: 1.1, willChange: 'transform' });
+    });
+
+    gsap.set(targets, { clipPath: 'inset(0 0 100% 0)', willChange: 'clip-path' });
+
+    gsap.to(targets, {
+      clipPath: 'inset(0 0 0% 0)',
+      duration,
+      ease: 'power3.inOut',
+      delay,
+      stagger,
       scrollTrigger: {
         trigger: el,
         start,
         toggleActions: 'play none none none',
         once: true,
       },
-      delay,
       onComplete: () => {
-        gsap.set(el, { clearProps: 'will-change,clip-path' });
-        if (img && img !== el) gsap.set(img, { clearProps: 'will-change' });
+        gsap.set(targets, { clearProps: 'will-change,clip-path' });
       },
     });
-
-    tl.to(el, { clipPath: 'inset(0 0 0% 0)', duration, ease: 'power3.inOut' }, 0);
-    if (img && img !== el) {
-      tl.to(img, { scale: 1, duration: duration * 1.1, ease: 'power3.inOut' }, 0);
-    }
   }
 
   // ── Char Reveal: each character slides up from behind a word-level clip mask ──

@@ -63,18 +63,33 @@ const ServiceSelection = () => {
       <div className="svc__container">
         {/* Header */}
         <header className="svc__header">
-          <span className="svc__eyebrow" data-gsap="fade-up">How Can We Help You?</span>
-          <h2 className="svc__title" data-gsap="fade-up" data-gsap-delay="0.1">
+          <span className="svc__eyebrow" data-gsap="fade-up">
+            How Can We Help You?
+          </span>
+          <h2
+            className="svc__title"
+            data-gsap="char-reveal"
+            data-gsap-start="top 85%"
+          >
             What Are You <em>Looking For?</em>
           </h2>
-          <p className="svc__subtitle" data-gsap="fade-up" data-gsap-delay="0.2">
+          <p
+            className="svc__subtitle"
+            data-gsap="fade-up"
+            data-gsap-delay="0.2"
+          >
             Whether you're buying, selling, or renting — we're here to make your
             real estate journey seamless and rewarding.
           </p>
         </header>
 
         {/* Service Cards */}
-        <div className="svc__grid" data-gsap="fade-up" data-gsap-stagger="0.12" data-gsap-delay="0.1">
+        <div
+          className="svc__grid"
+          data-gsap="clip-smooth-down"
+          data-gsap-stagger="0.14"
+          data-gsap-delay="0.1"
+        >
           {services.map((service) => (
             <article
               key={service.id}
@@ -129,23 +144,40 @@ const ServiceSelection = () => {
 
           {/* Content */}
           <div className="svc-cta__content">
-            <span className="svc-cta__eyebrow" data-gsap="fade-up">Need Guidance?</span>
-            <h3 className="svc-cta__title" data-gsap="fade-up" data-gsap-delay="0.1">
+            <span className="svc-cta__eyebrow" data-gsap="fade-up">
+              Need Guidance?
+            </span>
+            <h3
+              className="svc-cta__title"
+              data-gsap="char-reveal"
+              data-gsap-start="top 85%"
+            >
               Not Sure Where to <em>Start?</em>
             </h3>
-            <p className="svc-cta__text" data-gsap="fade-up" data-gsap-delay="0.2">
+            <p
+              className="svc-cta__text"
+              data-gsap="fade-up"
+              data-gsap-delay="0.15"
+            >
               Our experienced advisors are here to understand your needs and
               guide you through every step of your real estate journey.
             </p>
 
             {/* CTA Buttons */}
             <div className="svc-cta__actions">
-              <a href="/contact" className="svc-cta__btn svc-cta__btn--primary">
+              <a
+                href="/contact"
+                className="svc-cta__btn svc-cta__btn--primary"
+                data-gsap="btn-clip-reveal"
+                data-gsap-delay="0.2"
+              >
                 <MessageCircle size={20} />
                 <span>Talk to an Expert</span>
                 <ArrowRight size={18} />
               </a>
               <a
+                data-gsap="btn-clip-reveal"
+                data-gsap-delay="0.2"
                 href="tel:+1234567890"
                 className="svc-cta__btn svc-cta__btn--secondary"
               >
@@ -155,7 +187,11 @@ const ServiceSelection = () => {
             </div>
 
             {/* Trust Indicators */}
-            <div className="svc-cta__trust">
+            <div
+              data-gsap="zoom-in"
+              data-gsap-stagger="0.3 "
+              className="svc-cta__trust"
+            >
               <div className="svc-cta__trust-item">
                 <span className="svc-cta__trust-value">15+</span>
                 <span className="svc-cta__trust-label">Years Experience</span>

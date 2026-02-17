@@ -5,7 +5,6 @@ import { Pagination } from "swiper/modules";
 import "./PortfolioShowcase.css";
 import "swiper/css";
 import "swiper/css/pagination";
-import GlassButton from "../UI/GlassButton";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowRight } from "lucide-react";
@@ -35,8 +34,6 @@ export interface ShowcaseProject {
 interface PortfolioShowcaseProps {
   projects?: ShowcaseProject[];
   heading?: string;
-  ctaText?: string;
-  ctaHref?: string;
 }
 
 const defaultProjects: ShowcaseProject[] = [
@@ -48,7 +45,9 @@ const defaultProjects: ShowcaseProject[] = [
     status: "For Sale",
     thumb: getImagePath("ps1 (1).jpg"),
     bg: getImagePath("ps1 (1).jpg"),
-    beds: 5, baths: 4, area: "3,800",
+    beds: 5,
+    baths: 4,
+    area: "3,800",
   },
   {
     id: "northshore-penthouse",
@@ -58,7 +57,9 @@ const defaultProjects: ShowcaseProject[] = [
     status: "For Sale",
     thumb: getImagePath("ps1 (2).jpg"),
     bg: getImagePath("ps1 (2).jpg"),
-    beds: 3, baths: 2, area: "2,100",
+    beds: 3,
+    baths: 2,
+    area: "2,100",
   },
   {
     id: "garden-terrace",
@@ -68,7 +69,9 @@ const defaultProjects: ShowcaseProject[] = [
     status: "New Listing",
     thumb: getImagePath("ps1 (3).jpg"),
     bg: getImagePath("ps1 (3).jpg"),
-    beds: 4, baths: 3, area: "2,400",
+    beds: 4,
+    baths: 3,
+    area: "2,400",
   },
   {
     id: "evoke-residences",
@@ -78,7 +81,9 @@ const defaultProjects: ShowcaseProject[] = [
     status: "For Sale",
     thumb: getImagePath("ps1 (4).jpg"),
     bg: getImagePath("ps1 (4).jpg"),
-    beds: 2, baths: 2, area: "1,200",
+    beds: 2,
+    baths: 2,
+    area: "1,200",
   },
   {
     id: "heritage-estate",
@@ -88,15 +93,15 @@ const defaultProjects: ShowcaseProject[] = [
     status: "Exclusive",
     thumb: getImagePath("ps1 (5).jpg"),
     bg: getImagePath("ps1 (5).jpg"),
-    beds: 6, baths: 5, area: "4,500",
+    beds: 6,
+    baths: 5,
+    area: "4,500",
   },
 ];
 
 const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
   projects = defaultProjects,
   heading = "Featured Properties",
-  ctaText = "View All Properties",
-  ctaHref = "/properties",
 }) => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
@@ -108,7 +113,7 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
     document.body.classList.add("portfolio-active");
 
     const parallaxImages = featureSection.querySelectorAll<HTMLImageElement>(
-      ".project > figure > img[data-speed]"
+      ".project > figure > img[data-speed]",
     );
 
     let ticking = false;
@@ -127,7 +132,8 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
             const imgCenter = rect.top + rect.height / 2;
             const distanceFromCenter = imgCenter - viewportHeight / 2;
             const speed = parseFloat(img.dataset.speed || "0.25");
-            const translateY = (-distanceFromCenter / viewportHeight) * 100 * speed;
+            const translateY =
+              (-distanceFromCenter / viewportHeight) * 100 * speed;
             img.style.transform = `translate3d(0, ${translateY}%, 0) scale(1.05)`;
           });
           ticking = false;
@@ -145,9 +151,13 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
     if (titleLines && titleLines.length > 0) {
       gsap.set(titleLines, { yPercent: 100 });
       gsap.to(titleLines, {
-        yPercent: 0, duration: 1.8, stagger: 0.8, ease: "power1.out",
+        yPercent: 0,
+        duration: 1.8,
+        stagger: 0.8,
+        ease: "power1.out",
         scrollTrigger: {
-          trigger: featureSection, start: "top 70%",
+          trigger: featureSection,
+          start: "top 70%",
           toggleActions: "play none none none",
         },
       });
@@ -164,9 +174,17 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
   return (
     <section className="project-feature" ref={sectionRef}>
       <div className="pf-header">
-        <span className="rg-eyebrow">REAL GOLD PROPERTIES</span>
-        <h3 className="rg-section-title">{heading}</h3>
-        <p className="rg-section-subtitle">
+        <span data-gsap="fade-up" className="rg-eyebrow">
+          REAL GOLD PROPERTIES
+        </span>
+        <h3 data-gsap="char-reveal" className="rg-section-title">
+          {heading}
+        </h3>
+        <p
+          data-gsap="fade-up"
+          data-gsap-delay="0.2"
+          className="rg-section-subtitle"
+        >
           Handpicked residences across Australia's most coveted neighbourhoods —
           every listing curated for quality, location, and lasting value.
         </p>
@@ -175,7 +193,6 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
       <div className="projects-wrapper">
         {projects.map((project, index) => (
           <div className="project" key={project.title}>
-
             {/* ── Parallax background image ── */}
             <figure className="project-bg" aria-hidden="true">
               <img src={project.bg} alt="" data-speed="0.25" />
@@ -183,12 +200,13 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
 
             <div className="content">
               <div className="sticky">
-
                 {/* ── Property Card ── */}
                 <article className="pc-card">
                   {/* Top bar */}
                   <div className="pc-topbar">
-                    <span className="pc-index">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="pc-index">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
                     <span className="pc-status">{project.status}</span>
                   </div>
 
@@ -201,38 +219,64 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
                   {/* Content */}
                   <div className="pc-content">
                     <div className="pc-location">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                        <circle cx="12" cy="10" r="3"/>
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        aria-hidden="true"
+                      >
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
                       </svg>
                       <span>{project.location}</span>
                     </div>
 
-                    <h2 className="pc-title" ref={titleRef}>{project.title}</h2>
+                    <h2 className="pc-title" ref={titleRef}>
+                      {project.title}
+                    </h2>
 
                     <div className="pc-divider" />
 
                     <div className="pc-features">
                       <div className="pc-feat">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                          <path d="M3 22V8l9-6 9 6v14H3z"/>
-                          <path d="M9 22V12h6v10"/>
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          aria-hidden="true"
+                        >
+                          <path d="M3 22V8l9-6 9 6v14H3z" />
+                          <path d="M9 22V12h6v10" />
                         </svg>
                         <span className="pc-feat-val">{project.beds}</span>
                         <span className="pc-feat-label">Beds</span>
                       </div>
                       <div className="pc-feat">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                          <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z"/>
-                          <path d="M6 12V5a2 2 0 0 1 2-2h3v2.25"/>
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          aria-hidden="true"
+                        >
+                          <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z" />
+                          <path d="M6 12V5a2 2 0 0 1 2-2h3v2.25" />
                         </svg>
                         <span className="pc-feat-val">{project.baths}</span>
                         <span className="pc-feat-label">Baths</span>
                       </div>
                       <div className="pc-feat">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-                          <rect x="3" y="3" width="18" height="18" rx="2"/>
-                          <path d="M3 9h18M9 21V9"/>
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          aria-hidden="true"
+                        >
+                          <rect x="3" y="3" width="18" height="18" rx="2" />
+                          <path d="M3 9h18M9 21V9" />
                         </svg>
                         <span className="pc-feat-val">{project.area}</span>
                         <span className="pc-feat-label">Sq Ft</span>
@@ -255,10 +299,12 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
                 {/* ── Thumbnail ── */}
                 <div className="image-wrapper">
                   <figure>
-                    <img src={project.thumb} alt={`${project.title} interior`} />
+                    <img
+                      src={project.thumb}
+                      alt={`${project.title} interior`}
+                    />
                   </figure>
                 </div>
-
               </div>
             </div>
           </div>
@@ -283,7 +329,9 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
             <SwiperSlide key={project.id}>
               <article className="pc-card pf-slide-card">
                 <div className="pc-topbar">
-                  <span className="pc-index">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="pc-index">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                   <span className="pc-status">{project.status}</span>
                 </div>
                 <div className="pc-thumb">
@@ -292,9 +340,14 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
                 </div>
                 <div className="pc-content">
                   <div className="pc-location">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                      <circle cx="12" cy="10" r="3"/>
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
                     </svg>
                     <span>{project.location}</span>
                   </div>
@@ -302,29 +355,49 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
                   <div className="pc-divider" />
                   <div className="pc-features">
                     <div className="pc-feat">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                        <path d="M3 22V8l9-6 9 6v14H3z"/><path d="M9 22V12h6v10"/>
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      >
+                        <path d="M3 22V8l9-6 9 6v14H3z" />
+                        <path d="M9 22V12h6v10" />
                       </svg>
                       <span className="pc-feat-val">{project.beds}</span>
                       <span className="pc-feat-label">Beds</span>
                     </div>
                     <div className="pc-feat">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                        <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z"/>
-                        <path d="M6 12V5a2 2 0 0 1 2-2h3v2.25"/>
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      >
+                        <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z" />
+                        <path d="M6 12V5a2 2 0 0 1 2-2h3v2.25" />
                       </svg>
                       <span className="pc-feat-val">{project.baths}</span>
                       <span className="pc-feat-label">Baths</span>
                     </div>
                     <div className="pc-feat">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                        <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      >
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <path d="M3 9h18M9 21V9" />
                       </svg>
                       <span className="pc-feat-val">{project.area}</span>
                       <span className="pc-feat-label">Sq Ft</span>
                     </div>
                   </div>
-                  <Link to={`/properties/${project.id}`} className="pc-view-btn">
+                  <Link
+                    to={`/properties/${project.id}`}
+                    className="pc-view-btn"
+                  >
                     <span>View Property</span>
                     <ArrowRight size={16} />
                   </Link>
@@ -336,9 +409,6 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
         </Swiper>
       </div>
 
-      <div className="cta-wrapper">
-        <GlassButton href={ctaHref}>{ctaText}</GlassButton>
-      </div>
     </section>
   );
 };

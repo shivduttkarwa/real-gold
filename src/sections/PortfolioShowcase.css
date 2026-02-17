@@ -22,7 +22,7 @@ section.project-feature * {
 section.project-feature {
   z-index: 0;
   padding-top: clamp(3.25rem, 6vw, 5.25rem);
-  padding-bottom: clamp(1rem, 1.5vw + 0.5rem, 2rem);
+  padding-bottom: 0;
   position: relative;
   font-family: var(--font-body);
   background: var(--rg-beige-light, #FFF8F0);
@@ -146,6 +146,7 @@ section.project-feature .projects-wrapper .project .content .sticky {
   position: sticky;
   top: 0;
 }
+
 
 /* ─── Property Card (.pc-card) ─── */
 .pc-card {
@@ -432,7 +433,7 @@ section.project-feature .cta-wrapper {
 .pf-mobile-swiper {
   display: none;
   padding: 0 clamp(1rem, 4vw, 1.5rem);
-  padding-bottom: 3rem;
+  padding-bottom: 0;
 }
 
 .pf-mobile-swiper .swiper-slide {

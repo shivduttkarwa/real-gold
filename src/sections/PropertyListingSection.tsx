@@ -404,8 +404,9 @@ const PropertyListingSection = () => {
           duration: 1.2,
           ease: "power3.inOut",
           stagger: 0.12,
-          onComplete: () =>
-            gsap.set(cards, { clearProps: "will-change,clip-path" }),
+          onComplete: () => {
+            gsap.set(cards, { clearProps: "will-change,clip-path" });
+          },
         });
       },
     });

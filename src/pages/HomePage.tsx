@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import HeroSection from "../sections/HeroSection";
 import About from "../sections/About";
-import PortfolioShowcase from "../extra/Home/PortfolioShowcase";
+import PortfolioShowcase from "../sections/PortfolioShowcase";
 import PropertyListingSection from "@/sections/PropertyListingSection";
 import ServiceSelection from "@/sections/ServiceSelection";
 import PhilosophyPillars from "@/sections/Philosophy";
@@ -27,7 +27,9 @@ export default function HomePage({ ready = false }: { ready?: boolean }) {
     ];
     guards.forEach((key) => {
       pageRef.current
-        ?.querySelectorAll<HTMLElement>(`[data-${key.replace(/([A-Z])/g, "-$1").toLowerCase()}]`)
+        ?.querySelectorAll<HTMLElement>(
+          `[data-${key.replace(/([A-Z])/g, "-$1").toLowerCase()}]`,
+        )
         .forEach((el) => delete el.dataset[key]);
     });
 

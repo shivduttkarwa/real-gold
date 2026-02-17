@@ -43,9 +43,21 @@ export default function Philosophy() {
     <section className="rg-philo" aria-label="Real Gold Properties Philosophy">
       <div className="rg-philo__wrap">
         <header className="rg-philo__head">
-          <p className="rg-philo__label">Philosophy</p>
-          <h2 className="rg-philo__title">Our <em>Philosophy</em></h2>
-          <p className="rg-philo__subtitle">
+          <p data-gsap="fade-up" className="rg-philo__label">
+            Philosophy
+          </p>
+          <h2
+            data-gsap="char-reveal"
+            data-gsap-start="top 85%"
+            className="rg-philo__title"
+          >
+            Our <em>Philosophy</em>
+          </h2>
+          <p
+            data-gsap="fade-up"
+            data-gsap-delay="0.2"
+            className="rg-philo__subtitle"
+          >
             Real estate, made calm and confident—where every move is guided by
             clarity, care, and results.
           </p>
@@ -54,11 +66,26 @@ export default function Philosophy() {
         <div className="rg-philo__divider" role="separator" />
 
         {/* Desktop grid */}
-        <div className="rg-philo__grid" aria-label="Philosophy pillars">
+        <div
+          data-gsap="clip-smooth-down"
+          data-gsap-stagger="0.14"
+          data-gsap-delay="0.1"
+          className="rg-philo__grid"
+          aria-label="Philosophy pillars"
+        >
           {PILLARS.map((p) => (
-            <article key={p.title} className="rg-philo__card" data-tint={p.tintVar}>
+            <article
+              key={p.title}
+              className="rg-philo__card"
+              data-tint={p.tintVar}
+            >
               <div className="rg-philo__media">
-                <img className="rg-philo__img" src={p.img} alt={p.title} loading="lazy" />
+                <img
+                  className="rg-philo__img"
+                  src={p.img}
+                  alt={p.title}
+                  loading="lazy"
+                />
               </div>
               <div className="rg-philo__pill">
                 <div className="rg-philo__pillKicker">{p.kicker}</div>
@@ -90,7 +117,12 @@ export default function Philosophy() {
               <SwiperSlide key={p.title}>
                 <article className="rg-philo__card" data-tint={p.tintVar}>
                   <div className="rg-philo__media">
-                    <img className="rg-philo__img" src={p.img} alt={p.title} loading="lazy" />
+                    <img
+                      className="rg-philo__img"
+                      src={p.img}
+                      alt={p.title}
+                      loading="lazy"
+                    />
                   </div>
                   <div className="rg-philo__pill">
                     <div className="rg-philo__pillKicker">{p.kicker}</div>
