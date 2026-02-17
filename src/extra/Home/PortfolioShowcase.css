@@ -160,12 +160,13 @@ section.project-feature .projects-wrapper .project .content .sticky {
       ) / var(--grid-column-count) * 5 +
       clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) * 4
   );
+  height: clamp(420px, 68vh, 700px);
   flex-shrink: 0;
   position: relative;
   display: flex;
   flex-direction: column;
   border-radius: 18px;
-  overflow: clip;            /* same clipping behaviour as image-wrapper */
+  overflow: clip;
   background: var(--rg-beige-light, #FFF8F0);
   border: 1px solid rgba(212, 160, 86, 0.28);
   box-shadow: 0 16px 48px rgba(44, 24, 16, 0.18);
@@ -311,12 +312,33 @@ section.project-feature .projects-wrapper .project .content .sticky {
   letter-spacing: 0.08em;
 }
 
-/* ── CTA ── */
-.pc-card .pc-content .btn-primary {
-  font-size: 0.78rem !important;
-  padding: 0.65rem 1.25rem !important;
-  border-radius: 0.75rem !important;
+/* ── CTA button — higher specificity beats the * reset ── */
+section.project-feature .pc-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 1rem 1.875rem;
+  border: none;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: var(--rg-navy, #3E2C24);
+  color: var(--rg-beige-light, #FFF8F0);
   align-self: flex-start;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  margin-top: 0.25rem;
+}
+
+section.project-feature .pc-view-btn:hover {
+  background-color: var(--rg-gold, #D4A056);
+  color: var(--rg-navy, #3E2C24);
+}
+
+section.project-feature .pc-view-btn svg {
+  flex-shrink: 0;
 }
 
 /* ── Decorative gold corner ── */
@@ -406,6 +428,36 @@ section.project-feature .cta-wrapper {
   display: flex;
 }
 
+/* ─── Mobile Swiper — hidden on desktop ─── */
+.pf-mobile-swiper {
+  display: none;
+  padding: 0 clamp(1rem, 4vw, 1.5rem);
+  padding-bottom: 3rem;
+}
+
+.pf-mobile-swiper .swiper-slide {
+  height: auto;
+}
+
+/* Slide card — full width, auto height */
+.pf-slide-card {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.pf-mobile-swiper .swiper-pagination {
+  bottom: 0;
+}
+
+.pf-mobile-swiper .swiper-pagination-bullet {
+  background: var(--rg-gold, #D4A056);
+  opacity: 0.4;
+}
+
+.pf-mobile-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
 /* ─── Responsive ─── */
 
 @media (max-width: 768px) {
@@ -417,6 +469,10 @@ section.project-feature .cta-wrapper {
 }
 
 @media not (min-width: 58.75rem) {
+  section.project-feature {
+    display: none;
+  }
+
   section.project-feature .block-text {
     width: 100%;
     padding-left: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);

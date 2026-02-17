@@ -1,9 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 import "./PortfolioShowcase.css";
+import "swiper/css";
+import "swiper/css/pagination";
 import GlassButton from "../UI/GlassButton";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowRight } from "lucide-react";
 
 const publicUrl = import.meta.env.BASE_URL || "/";
 
@@ -236,9 +241,10 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
 
                     <Link
                       to={`/properties/${project.id}`}
-                      className="btn-primary pc-view-btn"
+                      className="pc-view-btn"
                     >
-                      View Property
+                      <span>View Property</span>
+                      <ArrowRight size={16} />
                     </Link>
                   </div>
 
@@ -257,6 +263,77 @@ const PortfolioShowcase: React.FC<PortfolioShowcaseProps> = ({
             </div>
           </div>
         ))}
+      </div>
+
+      {/* ── Mobile Swiper (hidden on desktop) ── */}
+      <div className="pf-mobile-swiper">
+        <Swiper
+          modules={[Pagination]}
+          spaceBetween={16}
+          slidesPerView={1.08}
+          grabCursor={true}
+          speed={420}
+          pagination={{ clickable: true, dynamicBullets: true }}
+          breakpoints={{
+            480: { slidesPerView: 1.15, spaceBetween: 20 },
+          }}
+          className="pf-swiper"
+        >
+          {projects.map((project, index) => (
+            <SwiperSlide key={project.id}>
+              <article className="pc-card pf-slide-card">
+                <div className="pc-topbar">
+                  <span className="pc-index">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="pc-status">{project.status}</span>
+                </div>
+                <div className="pc-thumb">
+                  <img src={project.thumb} alt={project.title} />
+                  <div className="pc-price-tag">{project.price}</div>
+                </div>
+                <div className="pc-content">
+                  <div className="pc-location">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                      <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <span>{project.location}</span>
+                  </div>
+                  <h2 className="pc-title">{project.title}</h2>
+                  <div className="pc-divider" />
+                  <div className="pc-features">
+                    <div className="pc-feat">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M3 22V8l9-6 9 6v14H3z"/><path d="M9 22V12h6v10"/>
+                      </svg>
+                      <span className="pc-feat-val">{project.beds}</span>
+                      <span className="pc-feat-label">Beds</span>
+                    </div>
+                    <div className="pc-feat">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <path d="M4 12h16a1 1 0 0 1 1 1v3a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-3a1 1 0 0 1 1-1z"/>
+                        <path d="M6 12V5a2 2 0 0 1 2-2h3v2.25"/>
+                      </svg>
+                      <span className="pc-feat-val">{project.baths}</span>
+                      <span className="pc-feat-label">Baths</span>
+                    </div>
+                    <div className="pc-feat">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+                      </svg>
+                      <span className="pc-feat-val">{project.area}</span>
+                      <span className="pc-feat-label">Sq Ft</span>
+                    </div>
+                  </div>
+                  <Link to={`/properties/${project.id}`} className="pc-view-btn">
+                    <span>View Property</span>
+                    <ArrowRight size={16} />
+                  </Link>
+                </div>
+                <div className="pc-corner" aria-hidden="true" />
+              </article>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
 
       <div className="cta-wrapper">

@@ -245,21 +245,17 @@
   }
 }
 
-/* Touch devices: show reveal on tap (no hover) */
+/* Touch devices: exact same as desktop hover — always revealed */
 @media (hover: none) and (pointer: coarse) {
+  .rg-philo__media {
+    aspect-ratio: 4 / 4.2;
+  }
+
   .rg-philo__reveal {
     transform: translateY(0%);
-    position: relative;
-    inset: auto;
   }
 
   .rg-philo__pill {
-    position: relative;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .rg-philo__card {
-    display: grid;
+    display: none;
   }
 }

@@ -41,62 +41,28 @@
 .rg-footer__brand {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 1.5rem;
 }
 
 .rg-footer__logo {
-  display: flex;
-  align-items: center;
-  gap: 0.875rem;
+  display: inline-flex;
   text-decoration: none;
   width: fit-content;
+  transition: opacity 0.3s ease;
 }
 
-.rg-footer__logo-icon {
-  width: 50px;
-  height: 50px;
-  background: var(--footer-gold);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
+.rg-footer__logo:hover {
+  opacity: 0.85;
 }
 
-.rg-footer__logo:hover .rg-footer__logo-icon {
-  transform: scale(1.05);
-  box-shadow: 0 8px 24px rgba(212, 160, 86, 0.3);
-}
-
-.rg-footer__logo-icon svg {
-  width: 26px;
-  height: 26px;
-  color: var(--footer-bg);
-}
-
-.rg-footer__logo-text {
-  display: flex;
-  flex-direction: column;
-  gap: 0.15rem;
-}
-
-.rg-footer__logo-name {
-  font-family: "Bona Nova SC", serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 0.02em;
-  line-height: 1;
-}
-
-.rg-footer__logo-tagline {
-  font-size: 0.7rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--footer-gold);
-  font-weight: 500;
+.rg-footer__logo-img {
+  height: 180px;
+  width: auto;
+  object-fit: contain;
+  margin-top: -40px;
+  margin-bottom: -20px;
 }
 
 .rg-footer__brand-desc {
@@ -110,6 +76,7 @@
   display: flex;
   gap: 1.5rem;
   margin-top: 0.5rem;
+  justify-content: center;
 }
 
 .rg-footer__trust-item {
