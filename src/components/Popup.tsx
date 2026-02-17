@@ -284,7 +284,7 @@ export default function Popup({ onComplete }: PopupProps) {
         <div className="rg-popup__content">
           <div className="rg-popup__logo" ref={logoRef}>
             <img
-              src="/images/RGP-logo.png"
+              src={`${import.meta.env.BASE_URL || "/"}images/RGP-logo.png`}
               alt="Real Gold Properties"
               className="rg-popup__logoMark"
             />

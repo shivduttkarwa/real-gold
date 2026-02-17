@@ -7,6 +7,7 @@ import "./HeroSection.css";
    COMPONENT
    ═══════════════════════════════════════════════════ */
 export default function HeroSection({ ready = false }: { ready?: boolean }) {
+  const publicUrl = import.meta.env.BASE_URL || "/";
   const bgRef = useRef<HTMLDivElement>(null);
   const vignetteRef = useRef<HTMLDivElement>(null);
   const titleOneRef = useRef<HTMLDivElement>(null);
@@ -147,7 +148,7 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
           aria-hidden="true"
           style={{
             background:
-              'linear-gradient(0deg, rgba(7, 20, 37, 0.2), rgba(7, 20, 37, 0.15)), url("public/images/journal_3.jpg")',
+              `linear-gradient(0deg, rgba(7, 20, 37, 0.2), rgba(7, 20, 37, 0.15)), url("${publicUrl}images/journal_3.jpg")`,
           }}
         ></div>
         <div

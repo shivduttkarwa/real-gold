@@ -77,9 +77,9 @@ const Footer = ({ ready = false }: FooterProps) => {
       <div className="rg-footer__main">
         {/* Brand */}
         <div className="rg-footer__brand">
-          <a href="/" className="rg-footer__logo">
+          <a href={`${import.meta.env.BASE_URL || "/"}`} className="rg-footer__logo">
             <img
-              src="/images/RGP-logo.png"
+              src={`${import.meta.env.BASE_URL || "/"}images/RGP-logo.png`}
               alt="Real Gold Properties"
               className="rg-footer__logo-img"
             />
