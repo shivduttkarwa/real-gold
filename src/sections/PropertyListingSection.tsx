@@ -400,14 +400,14 @@ const PropertyListingSection = () => {
     <section className="property-section">
       <div className="property-container">
         <header className="section-header">
-          <div className="section-badge">
+          <div className="section-badge" data-gsap="fade-up">
             <Building2 size={16} />
             <span>Prime Listings</span>
           </div>
-          <h2 className="section-title">
+          <h2 className="section-title" data-gsap="char-reveal" data-gsap-start="top 85%">
             Discover Your <em>Dream Home</em>
           </h2>
-          <p className="section-subtitle">
+          <p className="section-subtitle" data-gsap="fade-up" data-gsap-delay="0.15">
             Explore our handpicked collection of premium properties designed for
             modern living
           </p>

@@ -23,6 +23,7 @@ export default function HomePage({ ready = false }: { ready?: boolean }) {
       "wordWriteInit",
       "clipSmoothInit",
       "clipSmoothDownInit",
+      "charRevealInit",
     ];
     guards.forEach((key) => {
       pageRef.current

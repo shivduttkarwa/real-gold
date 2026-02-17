@@ -9,8 +9,6 @@ import "./HeroSection.css";
 export default function HeroSection({ ready = false }: { ready?: boolean }) {
   const bgRef = useRef<HTMLDivElement>(null);
   const vignetteRef = useRef<HTMLDivElement>(null);
-  const revealL1Ref = useRef<HTMLDivElement>(null);
-  const revealL2Ref = useRef<HTMLDivElement>(null);
   const revealSubRef = useRef<HTMLDivElement>(null);
   const revealCtaRef = useRef<HTMLDivElement>(null);
 
@@ -18,37 +16,27 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
   useEffect(() => {
     const bg = bgRef.current;
     const vignette = vignetteRef.current;
-    const revealL1 = revealL1Ref.current;
-    const revealL2 = revealL2Ref.current;
     const revealSub = revealSubRef.current;
     const revealCta = revealCtaRef.current;
 
-    if (!bg || !vignette || !revealL1 || !revealL2 || !revealSub || !revealCta) return;
+    if (!bg || !vignette || !revealSub || !revealCta) return;
 
-    // BG visible from the start — no animation needed
     gsap.set(bg, { opacity: 1, scale: 1.02 });
     gsap.set(vignette, { opacity: 0.5 });
-    // Content starts hidden
-    gsap.set([revealL1, revealL2, revealSub, revealCta], { x: -60, opacity: 0 });
+    gsap.set([revealSub, revealCta], { x: -60, opacity: 0 });
     gsap.set(revealCta, { scale: 0.9 });
   }, []);
 
-  // Animate content once curtain finishes rising (~750ms after ready)
+  // Animate subtitle + CTA after ready; titles handled by char-reveal via data-gsap
   useEffect(() => {
     if (!ready) return;
 
-    const revealL1 = revealL1Ref.current;
-    const revealL2 = revealL2Ref.current;
     const revealSub = revealSubRef.current;
     const revealCta = revealCtaRef.current;
 
-    if (!revealL1 || !revealL2 || !revealSub || !revealCta) return;
+    if (!revealSub || !revealCta) return;
 
-    // ready fires at progress=100, curtain takes 120ms+750ms=870ms to exit
     const tl = gsap.timeline({ delay: 0.95 });
-
-    tl.to(revealL1, { x: 0, opacity: 1, duration: 0.8, ease: "power4.out" }, 0.1);
-    tl.to(revealL2, { x: 0, opacity: 1, duration: 0.8, ease: "power4.out" }, 0.2);
     tl.to(revealSub, { x: 0, opacity: 1, duration: 0.7, ease: "power4.out" }, 0.35);
     tl.to(revealCta, { x: 0, opacity: 1, scale: 1, duration: 0.7, ease: "power4.out" }, 0.45);
 
@@ -75,15 +63,15 @@ export default function HeroSection({ ready = false }: { ready?: boolean }) {
           ref={vignetteRef}
           aria-hidden="true"
         ></div>
-        {/* ── REVEAL (animates on scroll) ── */}
+        {/* ── REVEAL ── */}
         <div className="rg-hero__reveal">
           <div className="rg-reveal__line">
-            <div className="rg-reveal__text" ref={revealL1Ref}>
+            <div className="rg-reveal__text" data-gsap="char-reveal" data-gsap-start="top 100%">
               Luxury <span className="rg-gold">Redefined</span>
             </div>
           </div>
           <div className="rg-reveal__line">
-            <div className="rg-reveal__text" ref={revealL2Ref}>
+            <div className="rg-reveal__text" data-gsap="char-reveal" data-gsap-start="top 100%" data-gsap-delay="0.15">
               Living <span className="rg-amber">Elevated</span>
             </div>
           </div>

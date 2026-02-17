@@ -1,619 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Text Reveal Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .title-wrapper {
+            text-align: center;
+        }
+
+        .title-line {
+            overflow: hidden;
+            margin-bottom: 0.2em;
+        }
+
+        .title-line .word {
+            display: inline-block;
+            overflow: hidden;
+            margin-right: 0.3em;
+            vertical-align: top;
+        }
+
+        .title-line .char {
+            display: inline-block;
+            color: #f5f5f5;
+            font-size: clamp(2.5rem, 8vw, 7rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            transform: translateY(120%);
+            opacity: 0;
+        }
+
+        .subtitle {
+            overflow: hidden;
+            margin-top: 1.5rem;
+        }
+
+        .subtitle span {
+            display: inline-block;
+            color: #555;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        .line-accent {
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            margin: 2rem auto 0;
+            opacity: 0;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+        }
+
+        .scroll-hint span {
+            color: #333;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .scroll-hint .arrow {
+            width: 1px;
+            height: 30px;
+            background: #333;
+            position: relative;
+        }
+
+        .scroll-hint .arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -3px;
+            width: 7px;
+            height: 7px;
+            border-right: 1px solid #333;
+            border-bottom: 1px solid #333;
+            transform: rotate(45deg);
+        }
+    </style>
 </head>
-
 <body>
-    <!-- ✅ BENEFITS / WHY US (with cursor-follow popup like watt.framer.website)
-     Paste anywhere in your page. No header/footer needed. -->
 
-    <section class="watt-benefits" id="benefits">
-        <!-- Background image -->
-        <div class="watt-benefits__bg" aria-hidden="true"
-            style="background-image:url('https://framerusercontent.com/images/ZG8Kj2L7025QYTBlntUGwUw1U.png')"></div>
-
-        <!-- subtle overlay to match readability -->
-        <div class="watt-benefits__overlay" aria-hidden="true"></div>
-
-        <div class="watt-benefits__wrap">
-            <!-- Left label -->
-            <div class="watt-benefits__label">
-                <span class="watt-benefits__labelBar" aria-hidden="true"></span>
-                <span class="watt-benefits__labelText">Why Us</span>
+    <section class="hero">
+        <div class="title-wrapper">
+            <div class="title-line" data-line="1">
+                <span class="word" data-word="We">
+                    <!-- chars injected by JS -->
+                </span>
+                <span class="word" data-word="Create">
+                </span>
             </div>
-
-            <!-- Main content -->
-            <div class="watt-benefits__content">
-                <h2 class="watt-benefits__title">
-                    Choose Us and Experience<br />
-                    Extraordinary Advantages
-                </h2>
-
-                <ol class="watt-benefits__list" aria-label="Benefits list">
-                    <!-- ITEM 1 -->
-                    <li class="watt-benefits__item" tabindex="0" data-title="Experienced Experts"
-                        data-detail="Work with seasoned professionals who bring deep market knowledge, negotiation strength, and end-to-end execution—so your decisions stay confident and risk-aware.">
-                        <div class="watt-benefits__row">
-                            <div class="watt-benefits__left">
-                                <span class="watt-benefits__num">01</span>
-                                <span class="watt-benefits__name">Experienced Experts</span>
-                            </div>
-
-                            <div class="watt-benefits__right">
-                                <span class="watt-benefits__square" aria-hidden="true"></span>
-                                <span class="watt-benefits__dotBtn" aria-hidden="true">
-                                    <span class="watt-benefits__dot"></span>
-                                    <span class="watt-benefits__icon">
-                                        <!-- hamburger/lines icon like framer snippet -->
-                                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                                            <path d="M9 18h12v-2H9v2zM3 6v2h18V6H3zm6 7h12v-2H9v2z"></path>
-                                        </svg>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="watt-benefits__line" aria-hidden="true">
-                            <span class="watt-benefits__lineFill"></span>
-                        </div>
-                    </li>
-
-                    <!-- ITEM 2 -->
-                    <li class="watt-benefits__item" tabindex="0" data-title="Customized Solutions"
-                        data-detail="Every client gets a tailored approach—strategy, timelines, and communication built around your goals, property type, and constraints (not a one-size template).">
-                        <div class="watt-benefits__row">
-                            <div class="watt-benefits__left">
-                                <span class="watt-benefits__num">02</span>
-                                <span class="watt-benefits__name">Customized Solutions</span>
-                            </div>
-
-                            <div class="watt-benefits__right">
-                                <span class="watt-benefits__square" aria-hidden="true"></span>
-                                <span class="watt-benefits__dotBtn" aria-hidden="true">
-                                    <span class="watt-benefits__dot"></span>
-                                    <span class="watt-benefits__icon">
-                                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                                            <path d="M9 18h12v-2H9v2zM3 6v2h18V6H3zm6 7h12v-2H9v2z"></path>
-                                        </svg>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="watt-benefits__line" aria-hidden="true">
-                            <span class="watt-benefits__lineFill"></span>
-                        </div>
-                    </li>
-
-                    <!-- ITEM 3 -->
-                    <li class="watt-benefits__item" tabindex="0" data-title="Advanced Technology"
-                        data-detail="Data-led decisions: smarter listings, faster screening, and performance insights—so you see what’s working and what needs refinement before it costs time.">
-                        <div class="watt-benefits__row">
-                            <div class="watt-benefits__left">
-                                <span class="watt-benefits__num">03</span>
-                                <span class="watt-benefits__name">Advanced Technology</span>
-                            </div>
-
-                            <div class="watt-benefits__right">
-                                <span class="watt-benefits__square" aria-hidden="true"></span>
-                                <span class="watt-benefits__dotBtn" aria-hidden="true">
-                                    <span class="watt-benefits__dot"></span>
-                                    <span class="watt-benefits__icon">
-                                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                                            <path d="M9 18h12v-2H9v2zM3 6v2h18V6H3zm6 7h12v-2H9v2z"></path>
-                                        </svg>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="watt-benefits__line" aria-hidden="true">
-                            <span class="watt-benefits__lineFill"></span>
-                        </div>
-                    </li>
-
-                    <!-- ITEM 4 -->
-                    <li class="watt-benefits__item" tabindex="0" data-title="Tailor-Made"
-                        data-detail="From first brief to final handover—your process is crafted for clarity, speed, and quality. Transparent updates, clean docs, and tight coordination across parties.">
-                        <div class="watt-benefits__row">
-                            <div class="watt-benefits__left">
-                                <span class="watt-benefits__num">04</span>
-                                <span class="watt-benefits__name">Tailor-Made</span>
-                            </div>
-
-                            <div class="watt-benefits__right">
-                                <span class="watt-benefits__square" aria-hidden="true"></span>
-                                <span class="watt-benefits__dotBtn" aria-hidden="true">
-                                    <span class="watt-benefits__dot"></span>
-                                    <span class="watt-benefits__icon">
-                                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                                            <path d="M9 18h12v-2H9v2zM3 6v2h18V6H3zm6 7h12v-2H9v2z"></path>
-                                        </svg>
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="watt-benefits__line" aria-hidden="true">
-                            <span class="watt-benefits__lineFill"></span>
-                        </div>
-                    </li>
-                </ol>
+            <div class="title-line" data-line="2">
+                <span class="word" data-word="Beautiful">
+                </span>
             </div>
+            <div class="title-line" data-line="3">
+                <span class="word" data-word="Experiences">
+                </span>
+            </div>
+            <div class="subtitle">
+                <span>Design · Develop · Deliver</span>
+            </div>
+            <div class="line-accent"></div>
         </div>
 
-        <!-- Cursor-follow popup -->
-        <div class="watt-tooltip" id="wattTooltip" role="dialog" aria-hidden="true">
-            <div class="watt-tooltip__inner">
-                <div class="watt-tooltip__kicker">Details</div>
-                <div class="watt-tooltip__title" id="wattTipTitle">Title</div>
-                <div class="watt-tooltip__body" id="wattTipBody">Body</div>
-            </div>
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="arrow"></div>
         </div>
     </section>
 
-    <style>
-        :root {
-            --watt-white: rgba(255, 255, 255, .96);
-            --watt-white-70: rgba(255, 255, 255, .70);
-            --watt-line: rgba(255, 255, 255, .55);
-            --watt-accent: rgba(241, 91, 38, 1);
-            /* framer orange-ish highlight */
-            --watt-cyan: rgb(137, 211, 223);
-            /* left label border tone */
-            --watt-max: 1200px;
-        }
-
-        * {
-            box-sizing: border-box
-        }
-
-        .watt-benefits {
-            position: relative;
-            min-height: 92vh;
-            padding: clamp(56px, 7vw, 92px) 0;
-            overflow: hidden;
-            color: #fff;
-            isolation: isolate;
-            font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-        }
-
-        .watt-benefits__bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            transform: scale(1.02);
-            z-index: -3;
-        }
-
-        .watt-benefits__overlay {
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(90deg, rgba(0, 0, 0, .45) 0%, rgba(0, 0, 0, .18) 55%, rgba(0, 0, 0, .08) 100%),
-                radial-gradient(900px 480px at 30% 20%, rgba(0, 0, 0, .25), transparent 60%);
-            z-index: -2;
-        }
-
-        .watt-benefits__wrap {
-            width: min(var(--watt-max), calc(100% - clamp(20px, 5vw, 56px)*2));
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 220px 1fr;
-            gap: clamp(22px, 4vw, 54px);
-            align-items: start;
-        }
-
-        /* Left label */
-        .watt-benefits__label {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-top: clamp(8px, 2vw, 18px);
-            opacity: .95;
-        }
-
-        .watt-benefits__labelBar {
-            width: 6px;
-            height: 30px;
-            background: var(--watt-cyan);
-            border-radius: 999px;
-        }
-
-        .watt-benefits__labelText {
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            font-size: 14px;
-            font-weight: 600;
-            opacity: .92;
-        }
-
-        /* Title */
-        .watt-benefits__title {
-            margin: 0 0 clamp(22px, 3vw, 34px);
-            text-transform: uppercase;
-            letter-spacing: .06em;
-            font-weight: 500;
-            font-size: clamp(30px, 3.7vw, 54px);
-            line-height: 1.08;
-            text-align: center;
-            padding-right: clamp(0px, 5vw, 60px);
-            /* to feel centered like screenshot */
-        }
-
-        /* List */
-        .watt-benefits__list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            gap: clamp(18px, 2.2vw, 24px);
-        }
-
-        .watt-benefits__item {
-            position: relative;
-            outline: none;
-        }
-
-        .watt-benefits__row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            min-height: 54px;
-        }
-
-        .watt-benefits__left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .watt-benefits__num {
-            width: 42px;
-            font-size: 20px;
-            letter-spacing: .06em;
-            opacity: .9;
-            font-weight: 500;
-        }
-
-        .watt-benefits__name {
-            font-size: 18px;
-            letter-spacing: .04em;
-            text-transform: uppercase;
-            opacity: .95;
-        }
-
-        .watt-benefits__right {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            min-width: 86px;
-            justify-content: flex-end;
-        }
-
-        /* tiny square marker at far right (seen in screenshot) */
-        .watt-benefits__square {
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, .9);
-            border-radius: 1px;
-            opacity: .9;
-        }
-
-        /* dot + icon control */
-        .watt-benefits__dotBtn {
-            position: relative;
-            width: 22px;
-            height: 22px;
-            display: grid;
-            place-items: center;
-        }
-
-        .watt-benefits__dot {
-            width: 8px;
-            height: 8px;
-            background: rgba(255, 255, 255, .95);
-            border-radius: 999px;
-            transform: translateZ(0);
-            transition: transform .25s ease, opacity .25s ease;
-        }
-
-        .watt-benefits__icon {
-            position: absolute;
-            inset: 0;
-            display: grid;
-            place-items: center;
-            opacity: 0;
-            transform: scale(.92);
-            transition: opacity .25s ease, transform .25s ease;
-        }
-
-        .watt-benefits__icon svg {
-            width: 18px;
-            height: 18px;
-            fill: rgba(255, 255, 255, .95);
-        }
-
-        /* Divider line + orange hover fill */
-        .watt-benefits__line {
-            height: 1px;
-            width: 100%;
-            background: var(--watt-line);
-            position: relative;
-            margin-top: 14px;
-        }
-
-        .watt-benefits__lineFill {
-            position: absolute;
-            inset: 0;
-            background: var(--watt-accent);
-            transform: scaleX(0);
-            transform-origin: left;
-            opacity: 0;
-            transition: transform .32s ease, opacity .32s ease;
-        }
-
-        /* Hover/focus effects similar to framer */
-        .watt-benefits__item:hover .watt-benefits__lineFill,
-        .watt-benefits__item:focus-visible .watt-benefits__lineFill {
-            transform: scaleX(1);
-            opacity: 1;
-        }
-
-        .watt-benefits__item:hover .watt-benefits__dot,
-        .watt-benefits__item:focus-visible .watt-benefits__dot {
-            transform: scale(.65);
-            opacity: .2;
-        }
-
-        .watt-benefits__item:hover .watt-benefits__icon,
-        .watt-benefits__item:focus-visible .watt-benefits__icon {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Tooltip */
-        .watt-tooltip {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 320px;
-            max-width: min(360px, calc(100vw - 32px));
-            pointer-events: none;
-            /* so hover stays on list item */
-            opacity: 0;
-            transform: translate3d(-999px, -999px, 0) scale(.98);
-            transition: opacity .16s ease, transform .16s ease;
-            z-index: 50;
-        }
-
-        .watt-tooltip.is-visible {
-            opacity: 1;
-        }
-
-        .watt-tooltip__inner {
-            background: rgba(10, 14, 18, .82);
-            border: 1px solid rgba(255, 255, 255, .16);
-            backdrop-filter: blur(10px);
-            border-radius: 14px;
-            padding: 14px 14px 12px;
-            box-shadow: 0 18px 60px rgba(0, 0, 0, .35);
-        }
-
-        .watt-tooltip__kicker {
-            font-size: 11px;
-            letter-spacing: .16em;
-            text-transform: uppercase;
-            opacity: .7;
-            margin-bottom: 6px;
-        }
-
-        .watt-tooltip__title {
-            font-size: 14px;
-            letter-spacing: .04em;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            opacity: .95;
-        }
-
-        .watt-tooltip__body {
-            font-size: 13px;
-            line-height: 1.45;
-            color: rgba(255, 255, 255, .80);
-        }
-
-        /* Responsive */
-        @media (max-width: 980px) {
-            .watt-benefits__wrap {
-                grid-template-columns: 1fr;
-                gap: 18px;
-            }
-
-            .watt-benefits__label {
-                justify-content: center;
-            }
-
-            .watt-benefits__title {
-                padding-right: 0;
-            }
-        }
-    </style>
-
-    <!-- ✅ FIX: tooltip was snapping because width/height were measured while it was still at (-999px,-999px)
-     This patch keeps it at a real position, measures correctly, and animates from the cursor smoothly.
-     Replace ONLY your <script> with this one (CSS can stay same). -->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script>
-        (function () {
-            const tooltip = document.getElementById("wattTooltip");
-            const tipTitle = document.getElementById("wattTipTitle");
-            const tipBody = document.getElementById("wattTipBody");
+        // Split words into characters
+        document.querySelectorAll('.word').forEach(wordEl => {
+            const text = wordEl.getAttribute('data-word');
+            wordEl.innerHTML = '';
+            text.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.classList.add('char');
+                span.textContent = char;
+                wordEl.appendChild(span);
+            });
+        });
 
-            const items = Array.from(document.querySelectorAll(".watt-benefits__item"));
+        // Master timeline
+        const tl = gsap.timeline({
+            defaults: {
+                ease: 'power4.out',
+            },
+            delay: 0.3
+        });
 
-            let active = null;
+        // Line 1 chars
+        tl.to('[data-line="1"] .char', {
+            y: '0%',
+            opacity: 1,
+            duration: 1.2,
+            stagger: 0.04,
+        });
 
-            // current + target positions (for smooth follow)
-            let cx = 0, cy = 0;
-            let tx = 0, ty = 0;
-            let raf = null;
+        // Line 2 chars (overlap)
+        tl.to('[data-line="2"] .char', {
+            y: '0%',
+            opacity: 1,
+            duration: 1.2,
+            stagger: 0.03,
+        }, '-=0.8');
 
-            // store size without relying on getBoundingClientRect at offscreen coords
-            let tW = 320, tH = 140;
+        // Line 3 chars (overlap)
+        tl.to('[data-line="3"] .char', {
+            y: '0%',
+            opacity: 1,
+            duration: 1.2,
+            stagger: 0.03,
+        }, '-=0.8');
 
-            function measureTooltip() {
-                // temporarily show invisibly at 0,0 for accurate measurement
-                const prevOpacity = tooltip.style.opacity;
-                const prevTransform = tooltip.style.transform;
-                const prevVisibility = tooltip.style.visibility;
+        // Subtitle
+        tl.to('.subtitle span', {
+            y: '0%',
+            opacity: 1,
+            duration: 1,
+        }, '-=0.5');
 
-                tooltip.style.visibility = "hidden";
-                tooltip.style.opacity = "1";
-                tooltip.style.transform = "translate3d(0px,0px,0px) scale(1)";
+        // Accent line
+        tl.to('.line-accent', {
+            width: '120px',
+            opacity: 0.4,
+            duration: 1.2,
+            ease: 'power2.inOut',
+        }, '-=0.6');
 
-                const r = tooltip.getBoundingClientRect();
-                tW = r.width || tW;
-                tH = r.height || tH;
+        // Scroll hint
+        tl.to('.scroll-hint', {
+            opacity: 1,
+            duration: 1,
+        }, '-=0.4');
 
-                tooltip.style.visibility = prevVisibility;
-                tooltip.style.opacity = prevOpacity;
-                tooltip.style.transform = prevTransform;
-            }
+        // Subtle floating animation on scroll hint
+        gsap.to('.scroll-hint .arrow', {
+            y: 5,
+            duration: 1.2,
+            repeat: -1,
+            yoyo: true,
+            ease: 'power1.inOut',
+            delay: 3,
+        });
 
-            // place tooltip near cursor but keep inside viewport
-            function clampToViewport(x, y) {
-                const pad = 14;
-                const offset = 18;
-
-                let px = x + offset;
-                let py = y + offset;
-
-                const vw = window.innerWidth;
-                const vh = window.innerHeight;
-
-                if (px + tW + pad > vw) px = x - tW - offset;
-                if (py + tH + pad > vh) py = y - tH - offset;
-
-                px = Math.max(pad, Math.min(vw - tW - pad, px));
-                py = Math.max(pad, Math.min(vh - tH - pad, py));
-
-                return { px, py };
-            }
-
-            // smooth animation loop (no snapping)
-            function tick() {
-                // ease current towards target
-                cx += (tx - cx) * 0.18;
-                cy += (ty - cy) * 0.18;
-
-                tooltip.style.transform = `translate3d(${cx}px, ${cy}px, 0) scale(1)`;
-                raf = requestAnimationFrame(tick);
-            }
-
-            function startFollow() {
-                if (raf) return;
-                raf = requestAnimationFrame(tick);
-            }
-
-            function stopFollow() {
-                if (!raf) return;
-                cancelAnimationFrame(raf);
-                raf = null;
-            }
-
-            function show(item, clientX, clientY) {
-                active = item;
-
-                tipTitle.textContent = item.getAttribute("data-title") || "Details";
-                tipBody.textContent = item.getAttribute("data-detail") || "";
-
-                // Make visible first (but keep transform as-is), then measure, then set targets
-                tooltip.classList.add("is-visible");
-                tooltip.setAttribute("aria-hidden", "false");
-
-                measureTooltip();
-
-                const { px, py } = clampToViewport(clientX, clientY);
-
-                // IMPORTANT: initialize current position from the cursor so it "pops" from there
-                // (no top-left snap)
-                cx = px;
-                cy = py;
-                tx = px;
-                ty = py;
-
-                tooltip.style.transform = `translate3d(${cx}px, ${cy}px, 0) scale(1)`;
-                startFollow();
-            }
-
-            function hide() {
-                active = null;
-                tooltip.classList.remove("is-visible");
-                tooltip.setAttribute("aria-hidden", "true");
-                stopFollow();
-
-                // don’t teleport to -999px; just let it fade out where it is
-                // (prevents the “snap to top-left” feeling)
-            }
-
-            // follow cursor while active
-            function onMove(e) {
-                if (!active) return;
-                const { px, py } = clampToViewport(e.clientX, e.clientY);
-                tx = px;
-                ty = py;
-            }
-            window.addEventListener("mousemove", onMove, { passive: true });
-
-            items.forEach((item) => {
-                item.addEventListener("mouseenter", (e) => {
-                    show(item, e.clientX, e.clientY);
-                });
-
-                item.addEventListener("mousemove", (e) => {
-                    if (!active) return;
-                    const { px, py } = clampToViewport(e.clientX, e.clientY);
-                    tx = px;
-                    ty = py;
-                });
-
-                item.addEventListener("mouseleave", () => {
-                    // tiny delay so moving to next item doesn’t flicker
-                    setTimeout(() => {
-                        if (!document.querySelector(".watt-benefits__item:hover")) hide();
-                    }, 50);
-                });
-
-                // keyboard support
-                item.addEventListener("focus", () => {
-                    const r = item.getBoundingClientRect();
-                    const mx = r.left + r.width * 0.55;
-                    const my = r.top + r.height * 0.35;
-                    show(item, mx, my);
-                });
-
-                item.addEventListener("blur", () => {
-                    setTimeout(() => {
-                        if (!document.activeElement.classList.contains("watt-benefits__item")) hide();
-                    }, 0);
+        // Hover interaction on chars
+        document.querySelectorAll('.char').forEach(char => {
+            char.addEventListener('mouseenter', () => {
+                gsap.to(char, {
+                    color: '#ffffff',
+                    scale: 1.15,
+                    duration: 0.3,
+                    ease: 'power2.out',
                 });
             });
-
-            window.addEventListener("keydown", (e) => {
-                if (e.key === "Escape") hide();
+            char.addEventListener('mouseleave', () => {
+                gsap.to(char, {
+                    color: '#f5f5f5',
+                    scale: 1,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                });
             });
-
-            window.addEventListener("resize", () => {
-                if (!active) return;
-                measureTooltip();
-            });
-        })();
+        });
     </script>
-
-
 </body>
-
 </html>
