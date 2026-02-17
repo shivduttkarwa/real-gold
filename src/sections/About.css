@@ -59,6 +59,10 @@
 .rg-about__copy {
   /* ✅ remove top padding so it hugs top */
   padding-top: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .rg-about__eyebrow {
@@ -80,7 +84,8 @@
   line-height: 1.15;
   font-size: clamp(1.55rem, 2.1vw, 2.35rem);
   margin: 0 0 1rem;
-  max-width: 28ch;
+  max-width: 40ch;
+  text-align: center;
   text-transform: none;
 }
 
@@ -93,14 +98,15 @@
   color: var(--rg-text-medium);
   font-size: 1rem;
   line-height: 1.65;
-  max-width: 56ch;
-  margin: 0;
+  max-width: 62ch;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .rg-about__body--big {
   font-size: 1.05rem;
   line-height: 1.7;
-  max-width: 58ch;
+  max-width: 62ch;
 }
 
 /* Right wide image (taller) */
@@ -167,6 +173,10 @@
 
 .rg-about__splitCopy {
   padding: clamp(0.25rem, 1vw, 0.75rem) 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .rg-about__splitTitle {
@@ -177,7 +187,8 @@
   line-height: 1.15;
   font-size: clamp(1.55rem, 2.1vw, 2.35rem);
   margin: 0 0 1rem;
-  max-width: 28ch;
+  max-width: 40ch;
+  text-align: center;
 }
 
 .rg-about__splitLine {

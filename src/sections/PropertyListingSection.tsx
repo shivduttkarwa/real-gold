@@ -488,11 +488,9 @@ const PropertyListingSection = () => {
           className={`property-grid ${isExiting ? "grid-exiting" : "grid-entering"}`}
         >
           {displayed.map((property, index) => (
-            <PropertyCard
-              key={property.id}
-              property={property}
-              cardIndex={index}
-            />
+            <div key={property.id} className="property-card-wrap">
+              <PropertyCard property={property} cardIndex={index} />
+            </div>
           ))}
         </div>
 
@@ -520,7 +518,15 @@ const PropertyListingSection = () => {
           >
             {displayed.map((property, index) => (
               <SwiperSlide key={property.id}>
-                <PropertyCard property={property} cardIndex={index} />
+                <div
+                  className="property-card-wrap"
+                  data-gsap-mobile="slide-right"
+                  data-gsap-start="top 70%"
+                  data-gsap-duration="0.5"
+                  data-gsap-ease="none"
+                >
+                  <PropertyCard property={property} cardIndex={index} />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>

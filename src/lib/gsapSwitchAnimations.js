@@ -34,7 +34,7 @@ class GSAPAnimations {
   setupAnimations() {
     // Find all elements with data-gsap attribute
     const scope = this.root || document;
-    const elements = scope.querySelectorAll('[data-gsap]');
+    const elements = scope.querySelectorAll('[data-gsap], [data-gsap-mobile]');
     const isMobile =
       typeof window !== 'undefined' &&
       window.matchMedia('(max-width: 991px)').matches;
