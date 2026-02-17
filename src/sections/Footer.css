@@ -366,7 +366,7 @@ a.rg-footer__contact-item:hover svg {
   font-family: "Bona Nova SC", serif;
   font-size: clamp(3rem, 13vw, 13rem);
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.08em;
   text-align: center;
   line-height: 0.85;
   display: flex;
@@ -398,6 +398,7 @@ a.rg-footer__contact-item:hover svg {
   color: var(--footer-gold);
   -webkit-text-stroke: 0;
   clip-path: inset(0 100% 0 0);
+  opacity: 0;
 }
 
 /* Initial shine animation when visible */
@@ -424,7 +425,7 @@ a.rg-footer__contact-item:hover svg {
   }
   100% {
     clip-path: inset(0 0 0 0);
-    opacity: 0.12;
+    opacity: 0;
     filter: brightness(1) blur(0px);
   }
 }
