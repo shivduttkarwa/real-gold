@@ -17,7 +17,6 @@ const PARTICLE_COLORS = ["#f5d67b", "#d4a84b", "#b8860b", "#ffd700", "#e6c35c"];
 
 export default function Preloader({ onComplete }: PreloaderProps) {
   const particlesRef = useRef<HTMLDivElement>(null);
-  const barRef = useRef<HTMLDivElement>(null);
   const [rising, setRising] = useState(false);
   const [hidden, setHidden] = useState(false);
 
@@ -66,7 +65,6 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       if (progress < stage.target) {
         progress += Math.random() * 3 + 1;
         if (progress > stage.target) progress = stage.target;
-        if (barRef.current) barRef.current.style.width = progress + "%";
         timerId = setTimeout(update, stage.speed + Math.random() * 20);
       } else {
         currentStage++;
@@ -140,15 +138,6 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         </div>
       </div>
 
-      {/* Progress */}
-      <div className="preloader-progress">
-        <div className="preloader-bar-wrapper">
-          <div className="preloader-bar" ref={barRef} />
-        </div>
-        <div className="preloader-loading-text">
-          Loading<span>.</span><span>.</span><span>.</span>
-        </div>
-      </div>
     </div>
   );
 }
