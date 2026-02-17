@@ -1,0 +1,460 @@
+.about-page {
+  --bg: var(--rg-beige-light);
+  --ink: var(--rg-text-dark);
+  --green: var(--rg-navy);
+  --green-2: var(--rg-text-medium);
+  --line: rgba(62, 44, 36, 0.18);
+  --accent: var(--rg-gold);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.about-page .container {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+.about-page .section {
+  padding: clamp(38px, 6vw, 92px) 0;
+}
+
+.about-page .section-spacious {
+  padding-top: clamp(34px, 5.6vw, 72px);
+}
+
+.about-page .section-tight {
+  padding-top: 0;
+}
+
+.about-page .section-mid {
+  padding-top: clamp(26px, 4vw, 56px);
+}
+
+.about-page .stack {
+  display: grid;
+  gap: clamp(14px, 2vw, 22px);
+}
+
+.about-page .center {
+  text-align: center;
+}
+
+.about-page .eyebrow {
+  color: var(--accent);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.about-page .h-serif {
+  font-family: var(--font-title);
+  color: var(--green);
+  font-weight: 400;
+  line-height: 1.06;
+}
+
+.about-page .lead {
+  font-family: var(--font-title);
+  color: var(--green);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.about-page .hero-title {
+  font-size: clamp(44px, 5.4vw, 78px);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.about-page .hero-media {
+  margin-top: clamp(18px, 3vw, 34px);
+}
+
+.about-page .hero-img {
+  width: 100%;
+  height: clamp(360px, 52vw, 640px);
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+
+.about-page .intro-statement {
+  font-size: clamp(28px, 3.5vw, 52px);
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.about-page .mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+  color: var(--green);
+}
+
+.about-page .mark .t1 {
+  font-family: var(--font-title);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.about-page .mark .t2 {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 10px;
+  margin-top: 3px;
+  opacity: 0.9;
+}
+
+.about-page .mark .twrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-page .mark-icon {
+  width: 18px;
+  height: 24px;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+  position: relative;
+  opacity: 0.95;
+}
+
+.about-page .mark-icon::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 999px;
+  background: var(--bg);
+}
+
+.about-page .split-green {
+  background: var(--green);
+  color: rgba(247, 240, 222, 0.92);
+}
+
+.about-page .split-green .wrap {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(18px, 3vw, 40px);
+  align-items: center;
+  padding: clamp(26px, 3.8vw, 54px);
+}
+
+.about-page .split-green .img-card {
+  background: var(--bg);
+  padding: clamp(12px, 1.4vw, 18px);
+}
+
+.about-page .split-green img {
+  width: 100%;
+  display: block;
+  height: clamp(360px, 34vw, 520px);
+  object-fit: cover;
+}
+
+.about-page .split-green h3 {
+  margin: 0 0 10px 0;
+  color: var(--bg);
+  font-size: clamp(34px, 3vw, 44px);
+}
+
+.about-page .split-green p {
+  margin: 0;
+  max-width: 42ch;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: rgba(247, 240, 222, 0.82);
+}
+
+.about-page .two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(18px, 3vw, 54px);
+  align-items: start;
+}
+
+.about-page .two-col .copy {
+  padding-top: 4px;
+  max-width: 46ch;
+}
+
+.about-page .two-col h2 {
+  margin: 10px 0 10px 0;
+  font-size: clamp(22px, 2.1vw, 28px);
+}
+
+.about-page .two-col p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.75;
+  opacity: 0.9;
+}
+
+.about-page .two-col .img {
+  width: 100%;
+  height: clamp(380px, 34vw, 560px);
+  object-fit: cover;
+  display: block;
+}
+
+.about-page .feature-title {
+  font-size: clamp(30px, 3.1vw, 44px);
+  margin: 0 0 16px 0;
+}
+
+.about-page .accordion {
+  border-top: 1px solid var(--line);
+  margin-top: 10px;
+}
+
+.about-page .acc-item {
+  border-bottom: 1px solid var(--line);
+}
+
+.about-page .acc-btn {
+  width: 100%;
+  padding: 16px 0;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.about-page .acc-btn .label {
+  color: var(--green-2);
+  font-weight: 600;
+}
+
+.about-page .acc-btn .icon {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  color: var(--green-2);
+  opacity: 0.85;
+  font-size: 16px;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.about-page .acc-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.about-page .acc-panel .inner {
+  padding: 0 0 16px 0;
+  font-size: 13.5px;
+  line-height: 1.75;
+  opacity: 0.9;
+  max-width: 52ch;
+}
+
+.about-page .acc-item[data-open="true"] .acc-panel {
+  max-height: 240px;
+}
+
+.about-page .acc-item[data-open="true"] .acc-btn .icon {
+  opacity: 1;
+}
+
+.about-page .slice-wrap {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: clamp(14px, 2vw, 26px);
+  align-items: center;
+}
+
+.about-page .slice {
+  width: 62px;
+  height: 340px;
+  background: linear-gradient(180deg, var(--accent), transparent);
+  opacity: 0.8;
+}
+
+.about-page .avail {
+  background: var(--green);
+  color: rgba(247, 240, 222, 0.92);
+}
+
+.about-page .avail .grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  min-height: clamp(520px, 46vw, 680px);
+}
+
+.about-page .avail .photo {
+  position: relative;
+  background: #1d2a20;
+}
+
+.about-page .avail .photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-page .avail .panel {
+  padding: clamp(28px, 4.3vw, 62px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+}
+
+.about-page .avail .panel h3 {
+  margin: 0;
+  color: var(--bg);
+  font-size: clamp(34px, 3.2vw, 46px);
+}
+
+.about-page .avail .panel p {
+  margin: 0;
+  max-width: 40ch;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: rgba(247, 240, 222, 0.8);
+}
+
+.about-page .link-underline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(247, 240, 222, 0.92);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  width: max-content;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 10px;
+  margin-top: 6px;
+}
+
+.about-page .img-overlay {
+  position: relative;
+  min-height: clamp(520px, 52vw, 720px);
+  background: #111;
+  overflow: hidden;
+}
+
+.about-page .img-overlay img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.about-page .overlay-card {
+  position: absolute;
+  right: clamp(18px, 4vw, 54px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: min(520px, 44vw);
+  background: var(--bg);
+  padding: clamp(26px, 3vw, 44px);
+}
+
+.about-page .overlay-card h3 {
+  margin: 0 0 22px 0;
+  font-size: clamp(34px, 3.2vw, 46px);
+}
+
+.about-page .overlay-card p {
+  margin: 0 0 18px 0;
+  max-width: 36ch;
+  font-size: 13.5px;
+  line-height: 1.75;
+  opacity: 0.9;
+}
+
+.about-page .overlay-card .cta {
+  color: var(--green-2);
+  text-decoration: none;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+@media (max-width: 980px) {
+  .about-page .split-green .wrap,
+  .about-page .two-col,
+  .about-page .avail .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-page .overlay-card {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 640px;
+  }
+
+  .about-page .img-overlay {
+    padding: 22px;
+    display: grid;
+    align-content: end;
+  }
+
+  .about-page .img-overlay img {
+    filter: brightness(0.92);
+  }
+
+  .about-page .slice {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .about-page .split-green .img-card {
+    padding: 10px;
+  }
+
+  .about-page .split-green img {
+    height: 340px;
+  }
+
+  .about-page .two-col .img {
+    height: 340px;
+  }
+
+  .about-page .avail .grid {
+    min-height: 0;
+  }
+
+  .about-page .avail .photo {
+    height: 360px;
+  }
+
+  .about-page .avail .photo img {
+    position: relative;
+  }
+}

@@ -34,6 +34,17 @@
   /* Fonts */
   --font-title: "Bona Nova SC", serif;
   --font-body: "Bricolage Grotesque", sans-serif;
+
+  /* Extended theme (About page) */
+  --bg: #f7f0de; /* warm cream */
+  --ink: #2d3b2f; /* body text */
+  --green: #3f6248; /* primary green */
+  --green-2: #355a41; /* darker */
+  --line: rgba(63, 98, 72, 0.22); /* dividers */
+  --accent: #bf6d2d; /* warm orange */
+  --max: 1180px; /* content width */
+  --pad: clamp(18px, 2.2vw, 30px);
+  --radius: 14px;
 }
 
 /* ════════════════════════════════════════════════════════
