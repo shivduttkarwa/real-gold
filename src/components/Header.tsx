@@ -73,6 +73,32 @@ export default function Header() {
     }
   }, [location.pathname, publicUrl]);
 
+  useEffect(() => {
+    const logo = headerRef.current?.querySelector(
+      ".rg-header__logo",
+    ) as HTMLElement | null;
+    if (!logo) return;
+
+    gsap.killTweensOf(logo);
+    if (isOpen) {
+      gsap.to(logo, {
+        y: -20,
+        opacity: 0,
+        duration: 0.35,
+        ease: "power2.inOut",
+      });
+    } else {
+      gsap.set(logo, { y: -20, opacity: 0 });
+      gsap.to(logo, {
+        y: 0,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power3.out",
+        delay: 1.4,
+      });
+    }
+  }, [isOpen]);
+
   return (
     <>
       <header ref={headerRef} className="rg-header" aria-label="Site header">
