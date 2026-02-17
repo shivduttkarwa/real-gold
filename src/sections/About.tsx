@@ -1,123 +1,127 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import "./About.css";
 
-const About: React.FC = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+type AboutProps = {
+  introKicker?: string;
+  introHeadline?: string;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      {
-        threshold: 0.2,
-        rootMargin: "-100px",
-      },
-    );
+  sectionKicker?: string;
+  sectionTitle?: string;
+  sectionBody?: string;
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+  imageWide?: string;
 
-    return () => observer.disconnect();
-  }, []);
+  // Replaced two-image spread with single left image + right content
+  splitKicker?: string;
+  splitTitle?: string;
+  splitBody?: string;
+  splitImage?: string;
 
+  centerTitle?: string;
+  centerBody?: string;
+  imageBottom?: string;
+};
+
+const About: React.FC<AboutProps> = ({
+  introKicker = "REAL GOLD PROPERTIES",
+  introHeadline = "Among Australia’s most liveable neighbourhoods, a modern real estate partner that helps you buy, sell, and rent homes with confidence — guided by local expertise and genuine care.",
+
+  sectionKicker = "MAKING MOVES",
+  sectionTitle = "HOMES BOUGHT & SOLD WITH CLARITY.\nRENTALS HANDLED WITH CARE.\nLOCAL INSIGHT THAT SAVES YOU TIME.",
+  sectionBody = "From first inspection to final signature, we make the process feel calm and transparent. Whether you’re upgrading, investing, or finding the right rental, we focus on the details that matter — pricing, presentation, and smooth communication.",
+  imageWide = "https://images.unsplash.com/photo-1505692952047-1a78307da8f2?auto=format&fit=crop&w=1800&q=85",
+
+  splitKicker = "LOCAL ADVANTAGE",
+  splitTitle = "A TEAM THAT KNOWS THE MARKET.\nA PROCESS THAT FEELS EASY.",
+  splitBody = "We blend sharp pricing strategy with high-touch support — so sellers feel confident, buyers feel informed, and renters feel taken care of. Clear timelines, quick updates, and zero confusion.",
+  splitImage = "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=1400&q=85",
+
+  centerTitle = "Across Growing Neighbourhoods,\nExplore With Confidence…",
+  centerBody = "Straightforward guidance, honest pricing strategy, and clean execution. We help buyers find the right fit, sellers maximize value, and renters move in without stress — with a team that stays responsive at every step.",
+  imageBottom = "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1800&q=85",
+}) => {
   return (
-    <section
-      ref={sectionRef}
-      className={`about ${isVisible ? "about--visible" : ""}`}
-      id="about"
-    >
-      <div className="about__container">
-        {/* Left - Content */}
-        <div className="about__content">
-          <span className="about__label">About Us</span>
+    <section className="rg-about" aria-label="About Real Gold Properties">
+      {/* 1) Big centered intro statement */}
+      <div className="rg-about__intro">
+        <div className="rg-about__kicker">{introKicker}</div>
+        <h2 className="rg-about__headline">{introHeadline}</h2>
+      </div>
 
-          <h2 className="about__title">
-            Building Dreams,
-            <span className="about__title-accent"> Crafting Legacies</span>
-          </h2>
+      {/* 2) Two-column: bigger text left, taller image right */}
+      <div className="rg-about__feature rg-about__watermark">
+        <div className="rg-about__featureInner">
+          <div className="rg-about__copy">
+            <div className="rg-about__eyebrow">{sectionKicker}</div>
 
-          <div className="about__divider">
-            <span className="about__divider-line"></span>
-            <span className="about__divider-diamond"></span>
-            <span className="about__divider-line"></span>
+            <h3 className="rg-about__capsTitle rg-about__capsTitle--big">
+              {sectionTitle.split("\n").map((line, idx) => (
+                <span key={idx} className="rg-about__capsLine">
+                  {line}
+                </span>
+              ))}
+            </h3>
+
+            <p className="rg-about__body rg-about__body--big">{sectionBody}</p>
           </div>
 
-          <p className="about__text">
-            At Real Gold Properties, we believe every home tells a story. For
-            over two decades, we've been curating extraordinary properties that
-            transcend mere architecture—they become the backdrop for life's most
-            cherished moments.
-          </p>
-
-          <p className="about__text">
-            Our commitment to excellence, paired with an intimate understanding
-            of our clients' aspirations, has established us as the premier
-            choice for discerning buyers seeking properties of distinction.
-          </p>
-
-          {/* Stats */}
-          <div className="about__stats">
-            <div className="about__stat">
-              <span className="about__stat-number">25+</span>
-              <span className="about__stat-label">Years Experience</span>
-            </div>
-            <div className="about__stat">
-              <span className="about__stat-number">3K+</span>
-              <span className="about__stat-label">Properties Sold</span>
-            </div>
-            <div className="about__stat">
-              <span className="about__stat-number">98%</span>
-              <span className="about__stat-label">Client Satisfaction</span>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <a href="#contact" className="about__cta">
-            <span>Discover Our Story</span>
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
+          <figure className="rg-about__wideFigure rg-about__wideFigure--tall">
+            <img
+              className="rg-about__wideImg rg-about__wideImg--tall"
+              src={imageWide}
+              alt="Real Gold Properties lifestyle"
+            />
+          </figure>
         </div>
+      </div>
 
-        {/* Right - Image */}
-        <div className="about__visual">
-          <div className="about__image-wrapper">
-            <div className="about__image">
-              <img
-                src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                alt="Luxury Property"
-                loading="lazy"
-              />
-            </div>
+      {/* 3) Single split: left image, right content */}
+      <div className="rg-about__split">
+        <div className="rg-about__splitInner">
+          <figure className="rg-about__splitFigure">
+            <img
+              className="rg-about__splitImg"
+              src={splitImage}
+              alt="Neighbourhood lifestyle"
+            />
+          </figure>
 
-            {/* Decorative frame */}
-            <div className="about__image-frame"></div>
+          <div className="rg-about__splitCopy">
+            <div className="rg-about__eyebrow">{splitKicker}</div>
+
+            <h3 className="rg-about__splitTitle">
+              {splitTitle.split("\n").map((line, idx) => (
+                <span key={idx} className="rg-about__splitLine">
+                  {line}
+                </span>
+              ))}
+            </h3>
+
+            <p className="rg-about__body">{splitBody}</p>
           </div>
+        </div>
+      </div>
 
-          {/* Floating accent card */}
-          <div className="about__accent-card">
-            <span className="about__accent-number">25</span>
-            <span className="about__accent-text">
-              Years of
-              <br />
-              Excellence
-            </span>
-          </div>
+      {/* 4) Centered copy + image (unchanged) */}
+      <div className="rg-about__center">
+        <div className="rg-about__centerInner rg-about__watermark2">
+          <h3 className="rg-about__centerTitle">
+            {centerTitle.split("\n").map((line, idx) => (
+              <span key={idx} className="rg-about__centerLine">
+                {line}
+              </span>
+            ))}
+          </h3>
+
+          <p className="rg-about__centerBody">{centerBody}</p>
+
+          <figure className="rg-about__bottomFigure">
+            <img
+              className="rg-about__bottomImg"
+              src={imageBottom}
+              alt="A beautiful home exterior"
+            />
+          </figure>
         </div>
       </div>
     </section>

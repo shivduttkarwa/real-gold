@@ -3,19 +3,76 @@
    ════════════════════════════════════════════════════════ */
 
 :root {
-  --rg-navy: #102e50;
-  --rg-gold: #f5c45e;
-  --rg-amber: #e78b48;
-  --rg-crimson: #be3d2a;
-  --rg-dark: #0a1a2e;
-  --rg-darker: #071425;
-  --rg-ink: #f0ead6;
-  --rg-ink-2: rgba(240, 234, 214, 0.72);
+  /* Vibrant Beige Theme */
+  --rg-beige-light: #FFF8F0;
+  --rg-beige: #F5EFE6;
+  --rg-beige-dark: #E8DCC8;
+  --rg-beige-darker: #D4C4B0;
+
+  /* Text Colors */
+  --rg-text-dark: #2C1810;
+  --rg-text-medium: #5C4D42;
+  --rg-text-light: #8B7968;
+
+  /* Accent Colors */
+  --rg-gold: #D4A056;
+  --rg-amber: #E78B48;
+  --rg-crimson: #C85A47;
+
+  /* Legacy support (updated to beige theme) */
+  --rg-navy: #3E2C24;
+  --rg-dark: #F5EFE6;
+  --rg-darker: #FFF8F0;
+  --rg-ink: #2C1810;
+  --rg-ink-2: rgba(44, 24, 16, 0.72);
+
+  /* Layout */
   --rg-max: 90rem;
   --rg-pad: clamp(1.5rem, 4vw, 3rem);
   --rg-radius: 1.125rem;
+
+  /* Fonts */
   --font-title: "Bona Nova SC", serif;
   --font-body: "Bricolage Grotesque", sans-serif;
+}
+
+/* ════════════════════════════════════════════════════════
+   UNIVERSAL TYPOGRAPHY UTILITIES
+   Use these across all sections to keep text consistent.
+   ════════════════════════════════════════════════════════ */
+
+/* Small gold kicker above a title */
+.rg-eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--rg-gold);
+  margin-bottom: 0.9rem;
+}
+
+/* Large serif section heading */
+.rg-section-title {
+  font-family: var(--font-title);
+  font-weight: 400;
+  color: var(--rg-navy);
+  line-height: 1.12;
+  letter-spacing: 0.01em;
+  font-size: clamp(2rem, 3.5vw, 3.5rem);
+  text-align: center;
+  margin: 0;
+}
+
+/* Prose below a section title */
+.rg-section-subtitle {
+  font-family: var(--font-body);
+  color: var(--rg-text-medium);
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 56ch;
+  margin: 0 auto;
+  text-align: center;
 }
 
 * {
@@ -26,7 +83,7 @@
 
 body {
   font-family: var(--font-body);
-  background: var(--rg-darker);
-  color: var(--rg-ink);
+  background: var(--rg-beige-light);
+  color: var(--rg-text-dark);
   min-height: 100vh;
 }

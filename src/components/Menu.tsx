@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Menu.css";
 
 export default function Menu() {
@@ -60,91 +61,31 @@ export default function Menu() {
           {/* Navigation */}
           <div className="menu-main">
             <ul className="menu-nav">
-              <li className="menu-item">
-                <a href="#" className="menu-link" onClick={closeMenu}>
-                  <span className="menu-number">01</span>
-                  <span className="menu-text">Home</span>
-                  <svg
-                    className="menu-arrow"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </a>
-              </li>
-              <li className="menu-item">
-                <a href="#" className="menu-link" onClick={closeMenu}>
-                  <span className="menu-number">02</span>
-                  <span className="menu-text">Projects</span>
-                  <svg
-                    className="menu-arrow"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </a>
-              </li>
-              <li className="menu-item">
-                <a href="#" className="menu-link" onClick={closeMenu}>
-                  <span className="menu-number">03</span>
-                  <span className="menu-text">About</span>
-                  <svg
-                    className="menu-arrow"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </a>
-              </li>
-              <li className="menu-item">
-                <a href="#" className="menu-link" onClick={closeMenu}>
-                  <span className="menu-number">04</span>
-                  <span className="menu-text">Services</span>
-                  <svg
-                    className="menu-arrow"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </a>
-              </li>
-              <li className="menu-item">
-                <a href="#" className="menu-link" onClick={closeMenu}>
-                  <span className="menu-number">05</span>
-                  <span className="menu-text">Contact</span>
-                  <svg
-                    className="menu-arrow"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                  >
-                    <path d="M7 17L17 7M17 7H7M17 7V17" />
-                  </svg>
-                </a>
-              </li>
+              {[
+                { num: "01", label: "Home",         to: "/" },
+                { num: "02", label: "About",        to: "/about" },
+                { num: "03", label: "Services",     to: "/services" },
+                { num: "04", label: "Testimonials", to: "/testimonials" },
+                { num: "05", label: "Contact",      to: "/contact" },
+              ].map(({ num, label, to }) => (
+                <li className="menu-item" key={to}>
+                  <Link to={to} className="menu-link" onClick={closeMenu}>
+                    <span className="menu-number">{num}</span>
+                    <span className="menu-text">{label}</span>
+                    <svg
+                      className="menu-arrow"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    >
+                      <path d="M7 17L17 7M17 7H7M17 7V17" />
+                    </svg>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

@@ -3,9 +3,9 @@
    Primary CTA button with elegant gold styling
    ════════════════════════════════════════════════════════ */
 .btn-primary {
-  --btn-primary-color: #f5c45e;
-  --btn-primary-hover: #e78b48;
-  --btn-primary-dark: #0a1a2e;
+  --btn-primary-color: #D4A056;
+  --btn-primary-hover: #E78B48;
+  --btn-primary-dark: #2C1810;
 
   font-family:
     system-ui,

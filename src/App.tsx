@@ -1,24 +1,29 @@
+import { lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 import Menu from "./components/Menu";
-import HeroSection from "./sections/HeroSection";
-
 import Footer from "./sections/Footer";
-import About from "./sections/About";
+
+const HomePage        = lazy(() => import("./pages/HomePage"));
+const AboutPage       = lazy(() => import("./pages/AboutPage"));
+const ServicesPage    = lazy(() => import("./pages/ServicesPage"));
+const TestimonialsPage = lazy(() => import("./pages/TestimonialsPage"));
+const ContactPage     = lazy(() => import("./pages/ContactPage"));
 
 function App() {
   return (
-    <div className="relative">
-      {/* Menu */}
+    <>
       <Menu />
-
-      {/* Hero Section */}
-      <HeroSection />
-
-      {/* Test Section */}
-      <About />
-
-      {/* Footer */}
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/"             element={<HomePage />} />
+          <Route path="/about"        element={<AboutPage />} />
+          <Route path="/services"     element={<ServicesPage />} />
+          <Route path="/testimonials" element={<TestimonialsPage />} />
+          <Route path="/contact"      element={<ContactPage />} />
+        </Routes>
+      </Suspense>
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -7,14 +7,7 @@
    ═══════════════════════════════════════════════════ */
 
 :root {
-  --rg-navy: #102e50;
-  --rg-gold: #f5c45e;
-  --rg-amber: #e78b48;
-  --rg-crimson: #be3d2a;
-  --rg-dark: #0a1a2e;
-  --rg-darker: #071425;
-  --rg-ink: #f0ead6;
-  --rg-ink-2: rgba(240, 234, 214, 0.72);
+  /* Colors are now inherited from index.css */
   --rg-max: 90rem; /* 1440px */
   --rg-pad: clamp(1.125rem, 2vw, 1.75rem); /* 18px - 28px */
   --rg-radius: 1.125rem; /* 18px */
@@ -44,10 +37,15 @@ body {
     Roboto,
     Arial,
     sans-serif;
-  background: var(--rg-darker);
-  color: var(--rg-ink);
+  background: var(--rg-beige-light);
+  color: var(--rg-text-dark);
   overflow-x: hidden;
   height: 100%;
+}
+
+/* ─── HERO SPECIFIC (Dark Theme) ─── */
+.rg-hero {
+  background: #071425;
 }
 
 a {
@@ -245,7 +243,7 @@ a {
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: 0.02em;
-  color: #fff;
+  color: #f0ead6;
   text-transform: uppercase;
   text-shadow: 0 0.1875rem 2.5rem rgba(0, 0, 0, 0.4); /* 3px 40px */
   will-change: transform, opacity;
@@ -331,8 +329,8 @@ a {
 /* ─── DEMO AFTER ─── */
 .demo-after {
   min-height: 120vh;
-  background: var(--rg-darker);
-  color: #fff;
+  background: #071425;
+  color: #f0ead6;
   padding: 5rem 1.25rem; /* 80px 20px */
   border-top: 0.0625rem solid rgba(245, 196, 94, 0.06); /* 1px */
 }
@@ -347,7 +345,7 @@ a {
 .demo-after p {
   max-width: var(--rg-max);
   margin: 1rem auto 0; /* 16px */
-  opacity: 0.55;
+  color: rgba(240, 234, 214, 0.72);
   line-height: 1.7;
 }
 

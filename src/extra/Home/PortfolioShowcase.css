@@ -1,0 +1,465 @@
+/* Reset for portfolio component only.
+   NOTE: specificity is (0,0,1,1) — card inner rules must use .info-wrapper prefix
+   to reach (0,0,2,0) and win. Do NOT remove this reset — it is required for
+   sticky / absolute positioning math to work (no stray browser margins). */
+section.project-feature * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.portfolio-active {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
+
+section.project-feature,
+section.project-feature * {
+  contain: none !important;
+  isolation: auto !important;
+}
+
+section.project-feature {
+  z-index: 0;
+  padding-top: clamp(3.25rem, 6vw, 5.25rem);
+  padding-bottom: clamp(1rem, 1.5vw + 0.5rem, 2rem);
+  position: relative;
+  font-family: var(--font-body);
+  background: var(--rg-beige-light, #FFF8F0);
+  --grid-column-count: 12;
+  overflow: visible !important;
+  contain: none !important;
+}
+
+/* ─── Section Header ─── */
+.pf-header {
+  max-width: var(--rg-max, 1280px);
+  margin: 0 auto;
+  padding: 0 var(--rg-pad, 2rem);
+  text-align: center;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+
+/* ─── Block text (title) ─── */
+section.project-feature .block-text {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+section.project-feature .block-text .block-text-col {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+section.project-feature .tilt-text-heading {
+  word-spacing: 0.12em !important;
+  color: var(--rg-navy, #3E2C24) !important;
+  font-family: var(--font-title) !important;
+  font-weight: 400 !important;
+  font-size: clamp(2rem, 3.5vw, 3.5rem) !important;
+  text-align: center !important;
+  line-height: 1.12 !important;
+}
+
+section.project-feature .tilt-text-word {
+  margin-right: 0.12em !important;
+}
+
+section.project-feature .tilt-text-word:last-child {
+  margin-right: 0 !important;
+}
+
+section.project-feature .block-text h3 .mask {
+  overflow: hidden;
+  display: block;
+}
+
+section.project-feature .block-text h3 .line {
+  display: block;
+  will-change: transform;
+}
+
+/* ─── Each property row ─── */
+section.project-feature .projects-wrapper .project {
+  height: 100vh;
+  display: block;
+  position: relative;
+  overflow: clip;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Full-screen background image */
+section.project-feature .projects-wrapper .project > figure,
+section.project-feature .projects-wrapper .project > figure > img {
+  width: 100%;
+  height: 100vh;
+}
+
+section.project-feature .projects-wrapper .project > figure > img {
+  object-fit: cover;
+  object-position: center;
+  will-change: transform;
+  transform: translate3d(0, 0, 0) scale(1.05);
+}
+
+/* Gradient overlay — bottom-heavy so info panel reads on top */
+.project__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(7, 20, 37, 0.72) 0%,
+    rgba(7, 20, 37, 0.45) 50%,
+    rgba(7, 20, 37, 0.18) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Content column (sticky) */
+section.project-feature .projects-wrapper .project .content {
+  z-index: 2;
+  height: 300vh;
+  position: absolute;
+  top: -100vh;
+  left: 0;
+  right: 0;
+}
+
+section.project-feature .projects-wrapper .project .content .sticky {
+  height: 100vh;
+  padding: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+/* ─── Property Card (.pc-card) ─── */
+.pc-card {
+  width: calc(
+    (
+        100vw -
+          (
+            clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem) * 2 +
+              clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) *
+              (var(--grid-column-count) - 1)
+          )
+      ) / var(--grid-column-count) * 5 +
+      clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) * 4
+  );
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: clip;            /* same clipping behaviour as image-wrapper */
+  background: var(--rg-beige-light, #FFF8F0);
+  border: 1px solid rgba(212, 160, 86, 0.28);
+  box-shadow: 0 16px 48px rgba(44, 24, 16, 0.18);
+}
+
+/* ── Top bar: index + status ── */
+.pc-card .pc-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.25rem;
+  background: var(--rg-navy, #3E2C24);
+}
+
+.pc-card .pc-index {
+  font-family: var(--font-title);
+  font-size: 0.78rem;
+  color: rgba(240, 234, 214, 0.5);
+  letter-spacing: 0.14em;
+}
+
+.pc-card .pc-status {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rg-gold, #D4A056);
+  background: rgba(212, 160, 86, 0.15);
+  border: 1px solid rgba(212, 160, 86, 0.4);
+  border-radius: 50px;
+  padding: 0.25rem 0.75rem;
+}
+
+/* ── Thumbnail strip ── */
+.pc-card .pc-thumb {
+  position: relative;
+  width: 100%;
+  height: clamp(130px, 18vh, 200px);
+  overflow: clip;
+}
+
+.pc-card .pc-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.pc-card .pc-price-tag {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.85rem;
+  font-family: var(--font-title);
+  font-size: clamp(1rem, 1.8vw, 1.4rem);
+  font-weight: 400;
+  color: #fff;
+  background: rgba(7, 20, 37, 0.72);
+  backdrop-filter: blur(6px);
+  padding: 0.3rem 0.85rem;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 160, 86, 0.3);
+  letter-spacing: 0.02em;
+}
+
+/* ── Text content ── */
+.pc-card .pc-content {
+  padding: 1.1rem 1.25rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1;
+}
+
+.pc-card .pc-location {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--rg-text-light, #8B7968);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pc-card .pc-location svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  color: var(--rg-gold, #D4A056);
+}
+
+.pc-card .pc-title {
+  font-family: var(--font-title);
+  font-weight: 400;
+  color: var(--rg-navy, #3E2C24);
+  font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.pc-card .pc-divider {
+  height: 1px;
+  background: rgba(212, 160, 86, 0.2);
+}
+
+/* ── Feature row (icons) ── */
+.pc-card .pc-features {
+  display: flex;
+  gap: 1.1rem;
+}
+
+.pc-card .pc-feat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  flex: 1;
+  padding: 0.6rem 0.5rem;
+  background: var(--rg-beige, #F5EFE6);
+  border-radius: 10px;
+  border: 1px solid rgba(212, 160, 86, 0.15);
+}
+
+.pc-card .pc-feat svg {
+  width: 18px;
+  height: 18px;
+  color: var(--rg-gold, #D4A056);
+}
+
+.pc-card .pc-feat-val {
+  font-family: var(--font-title);
+  font-size: 1rem;
+  color: var(--rg-navy, #3E2C24);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.pc-card .pc-feat-label {
+  font-family: var(--font-body);
+  font-size: 0.62rem;
+  color: var(--rg-text-light, #8B7968);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── CTA ── */
+.pc-card .pc-content .btn-primary {
+  font-size: 0.78rem !important;
+  padding: 0.65rem 1.25rem !important;
+  border-radius: 0.75rem !important;
+  align-self: flex-start;
+}
+
+/* ── Decorative gold corner ── */
+.pc-card .pc-corner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(
+    135deg,
+    transparent 50%,
+    rgba(212, 160, 86, 0.25) 50%
+  );
+  pointer-events: none;
+}
+
+/* ─── Thumbnail image ─── */
+section.project-feature
+  .projects-wrapper
+  .project
+  .content
+  .sticky
+  .image-wrapper {
+  width: calc(
+    (
+        100vw -
+          (
+            clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem) * 2 +
+              clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) *
+              (var(--grid-column-count) - 1)
+          )
+      ) / var(--grid-column-count) * 5 +
+      clamp(1rem, 0.751174vw + 0.823944rem, 1.5rem) * 4 +
+      clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem) * 0
+  );
+  height: clamp(420px, 68vh, 700px);
+  border-radius: 14px;
+  flex-shrink: 0;
+  overflow: clip;
+  box-shadow: 0 16px 40px rgba(7, 20, 37, 0.4);
+  border: 1px solid rgba(212, 160, 86, 0.2);
+}
+
+section.project-feature
+  .projects-wrapper
+  .project
+  .content
+  .sticky
+  .image-wrapper
+  figure {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+section.project-feature
+  .projects-wrapper
+  .project
+  .content
+  .sticky
+  .image-wrapper
+  figure
+  img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* First / last child overrides */
+section.project-feature .projects-wrapper .project:first-child .content {
+  top: 0 !important;
+}
+
+section.project-feature .projects-wrapper .project:first-child .content,
+section.project-feature .projects-wrapper .project:last-child .content {
+  height: 200vh !important;
+}
+
+/* ─── CTA ─── */
+section.project-feature .cta-wrapper {
+  padding-left: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+  padding-right: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+  justify-content: center;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+/* ─── Responsive ─── */
+
+@media (max-width: 768px) {
+  section.project-feature .block-text {
+    width: 100%;
+    padding: 0 1rem;
+    overflow: visible;
+  }
+}
+
+@media not (min-width: 58.75rem) {
+  section.project-feature .block-text {
+    width: 100%;
+    padding-left: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+    padding-right: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+  }
+
+  section.project-feature .projects-wrapper .project .content {
+    top: 0;
+  }
+
+  section.project-feature .projects-wrapper .project .content .sticky {
+    padding-left: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+    padding-right: clamp(1.5rem, 3.75587vw + 0.619718rem, 4rem);
+    flex-direction: column;
+    align-items: stretch;
+    padding-top: 7rem;
+    padding-bottom: 3.5rem;
+    position: static;
+    gap: 2rem;
+  }
+
+  section.project-feature .projects-wrapper .project .content .sticky .pc-card {
+    width: 100%;
+  }
+
+  section.project-feature
+    .projects-wrapper
+    .project
+    .content
+    .sticky
+    .image-wrapper {
+    width: 100%;
+    max-height: 33vh;
+  }
+
+  .project__gradient {
+    background: linear-gradient(
+      to bottom,
+      rgba(7, 20, 37, 0.6) 0%,
+      rgba(7, 20, 37, 0.35) 50%,
+      rgba(7, 20, 37, 0.15) 100%
+    );
+  }
+}
