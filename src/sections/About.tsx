@@ -76,7 +76,7 @@ const About: React.FC<AboutProps> = ({
       </div>
 
       {/* 3) Single split: left image, right content */}
-      <div className="rg-about__split">
+      <div className="rg-about__split rg-about__watermark--arch">
         <div className="rg-about__splitInner">
           <figure className="rg-about__splitFigure">
             <img
@@ -104,7 +104,7 @@ const About: React.FC<AboutProps> = ({
 
       {/* 4) Centered copy + image (unchanged) */}
       <div className="rg-about__center">
-        <div className="rg-about__centerInner rg-about__watermark2">
+        <div className="rg-about__centerInner rg-about__watermark--columns">
           <h3 className="rg-about__centerTitle">
             {centerTitle.split("\n").map((line, idx) => (
               <span key={idx} className="rg-about__centerLine">
